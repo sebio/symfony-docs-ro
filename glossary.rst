@@ -8,7 +8,7 @@ Glosar
     Proiect
         Un *Proiect* reprezinta un folder compus dintr-o Aplicatie, un set
         de bundle-uri, librarii externe, un autoloader si scripturile
-        controlorilor frontali.
+        controlerelor frontale.
 
     Aplicatie
         O *Aplicatie* reprezinta un folder ce contine *configuratia* pentru
