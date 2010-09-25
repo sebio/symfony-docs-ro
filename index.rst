@@ -4,7 +4,7 @@ Documentatia Symfony2
 Tur Rapid
 ---------
 
-Incepeti imediat cu Symfony2 :doc:`Tur Rapid <quick_tour/index>`:
+Incepeti imediat cu :doc:`Turul Rapid <quick_tour/index>` Symfony2:
 
 .. toctree::
     :hidden:
