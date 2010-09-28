@@ -1,10 +1,10 @@
-Documentatia Symfony2
+﻿Documentația Symfony2
 =====================
 
 Tur Rapid
 ---------
 
-Incepeti imediat cu :doc:`Turul Rapid <quick_tour/index>` Symfony2:
+Începeți imediat cu :doc:`Turul Rapid <quick_tour/index>` Symfony2:
 
 .. toctree::
     :hidden:
@@ -24,7 +24,7 @@ Incepeti imediat cu :doc:`Turul Rapid <quick_tour/index>` Symfony2:
 Ghiduri
 -------
 
-Descoperiti Symfony2 cu ajutorul ghidurilor relevante:
+Descoperiți Symfony2 cu ajutorul ghidurilor relevante:
 
 .. toctree::
     :hidden:
@@ -33,10 +33,10 @@ Descoperiti Symfony2 cu ajutorul ghidurilor relevante:
 
 .. include:: guides/map.rst.inc
 
-Participarea
+Contribuirea
 ------------
 
-Participati la dezvoltarea Symfony2:
+Contribuiți la dezvoltarea Symfony2:
 
 .. toctree::
     :hidden:
