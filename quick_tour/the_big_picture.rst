@@ -102,10 +102,10 @@ usoara).
 .. tip::
 
    Sandbox-ul utilizeaza in mod implicit YAML, dar dumneavoastra puteti comuta
-   foarte usor catre XML sau PHP editand fisierul ``config/AppKernel.php``.
-   Puteti comuta acum urmarind instructiunile aflate in partea de jos a
-   fisierului ``config/AppKernel.php`` (tutorialele prezinta configurarea in
-   toate formatele suportate).
+   foarte usor catre XML sau PHP editand fisierul ``app/AppKernel.php``. Puteti
+   comuta acum urmarind instructiunile aflate in partea de jos a fisierului
+   ``app/AppKernel.php`` (tutorialele prezinta configurarea in toate formatele
+   suportate).
 
 .. index::
    single: Routing
