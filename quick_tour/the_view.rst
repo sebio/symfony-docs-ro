@@ -29,13 +29,13 @@ metodei ``extend()``:
 .. code-block:: html+php
 
     <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout') ?>
+    <?php $view->extend('HelloBundle::layout.php') ?>
 
     Hello <?php echo $name ?>!
 
-Notatia ``HelloBundle::layout`` va suna familiar, nu-i asa? Este aceeasi notatie
-ca aceea de referentiere a unui sablon. Partea ``::`` nu inseamna decat ca
-elementul controler este gol, prin urmare fisierul corespunzator este stocat
+Notatia ``HelloBundle::layout.php`` va suna familiar, nu-i asa? Este aceeasi
+notatie ca aceea de referentiere a unui sablon. Partea ``::`` nu inseamna decat
+ca elementul controler este gol, prin urmare fisierul corespunzator este stocat
 direct in ``views/``.
 
 Acum, sa aruncam o privire asupra fisierului ``layout.php``:
@@ -43,17 +43,17 @@ Acum, sa aruncam o privire asupra fisierului ``layout.php``:
 .. code-block:: html+php
 
     <!-- src/Application/HelloBundle/Resources/views/layout.php -->
-    <?php $view->extend('::layout') ?>
+    <?php $view->extend('::layout.php') ?>
 
     <h1>Hello Application</h1>
 
     <?php $view['slots']->output('_content') ?>
 
-Layout-ul insusi este decorat de un alt layout (``::layout``). Symfony suporta
-niveluri multiple de decorare: un layout poate sa fie decorat de un altul.
-Cand denumirea bundle-ului lipseste din numele sablonului, vederile sunt cautate
-in folderul ``app/views/``. Acest folder stocheaza vederile globale pentru
-intregul proiect:
+Layout-ul insusi este decorat de un alt layout (``::layout.php``). Symfony
+suporta niveluri multiple de decorare: un layout poate sa fie decorat de un
+altul. Cand denumirea bundle-ului lipseste din numele sablonului, vederile sunt
+cautate in folderul ``app/views/``. Acest folder stocheaza vederile globale
+pentru intregul proiect:
 
 .. code-block:: html+php
 
@@ -92,7 +92,7 @@ layout ce decoreaza sablonul. In sablonul ``index.php``, definiti slotul
 .. code-block:: html+php
 
     <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout') ?>
+    <?php $view->extend('HelloBundle::layout.php') ?>
 
     <?php $view['slots']->set('title', 'Hello World app') ?>
 
@@ -141,9 +141,9 @@ Si modificati sablonul ``index.php`` pentru al include:
 .. code-block:: html+php
 
     <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout') ?>
+    <?php $view->extend('HelloBundle::layout.php') ?>
 
-    <?php echo $view->render('HelloBundle:Hello:hello', array('name' => $name)) ?>
+    <?php echo $view->render('HelloBundle:Hello:hello.php', array('name' => $name)) ?>
 
 Metoda ``render()`` evalueaza si intoarce continutul unui alt sablon (este exact
 aceeasi metoda ca cea utilizata in controler).
@@ -179,7 +179,7 @@ Aici, sirul de caractere ``HelloBundle:Hello:fancy`` se refera la actiunea
             // creati un obiect bazat pe variabila $color
             $object = ...;
 
-            return $this->render('HelloBundle:Hello:fancy', array('name' => $name, 'object' => $object));
+            return $this->render('HelloBundle:Hello:fancy.php', array('name' => $name, 'object' => $object));
         }
 
         // ...

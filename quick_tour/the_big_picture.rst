@@ -227,7 +227,7 @@ HTML) si este definit sub forma de clasa PHP:
     {
         public function indexAction($name)
         {
-            return $this->render('HelloBundle:Hello:index', array('name' => $name));
+            return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
         }
     }
 
@@ -261,15 +261,15 @@ dezvoltatori. In exemplul nostru nu avem decat un bundle, ``HelloBundle``.
 Sabloane
 ~~~~~~~~
 
-Controlerul reda sablonul ``HelloBundle:Hello:index``. Dar in ce consta numele
-sablonului? ``HelloBundle`` reprezinta numele bundle-ului, ``Hello`` este numele
-controlerului, iar ``index`` numele fisierului sablonului. Sablonul insusi este
-alcatuit din cod HTML si expresii simple PHP:
+Controlerul reda sablonul ``HelloBundle:Hello:index.php``. Dar in ce consta
+numele sablonului? ``HelloBundle`` reprezinta numele bundle-ului, ``Hello`` este
+numele controlerului, iar ``index.php`` numele fisierului sablonului. Sablonul
+insusi este alcatuit din cod HTML si expresii simple PHP:
 
 .. code-block:: html+php
 
     # src/Application/HelloBundle/Resources/views/Hello/index.php
-    <?php $view->extend('HelloBundle::layout') ?>
+    <?php $view->extend('HelloBundle::layout.php') ?>
 
     Hello <?php echo $name ?>!
 
