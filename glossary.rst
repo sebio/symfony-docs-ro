@@ -16,6 +16,6 @@ Glosar
 
     Bundle
         Un *Bundle* constă într-un set structurat de fișiere (PHP, foi de stil,
-        JavaScript-uri, imagini etc) care *implementează* o singură facilitate
+        JavaScript-uri, imagini etc.) care *implementează* o singură facilitate
         (un blog, un forum etc.) și care poate fi usor împărtășit cu alți
         dezvoltatori.

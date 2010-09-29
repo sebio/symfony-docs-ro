@@ -1,21 +1,21 @@
-Vederea cu Twig
+﻿Vederea cu Twig
 ===============
 
-Deci vreti sa invatati Symfony2 cu sabloane Twig. Buna alegere! Twig face ca
-sabloanele dumneavoastra sa fie mai concise si mai prietenoase pentru designerii
+Deci vreți să învățați Symfony2 cu șabloane Twig. Bună alegere! Twig face ca
+șabloanele dumneavoastră să fie mai concise și mai prietenoase pentru designerii
 web.
 
 .. include:: /guides/Templating/Twig.rst
-   :start-line: 7
+    :start-line: 7
 
-Ganduri de Final
-----------------
+Concluzii
+---------
 
-Nu ati lucrat decat de aproape 20 de minute cu Symfony si deja puteti realiza
-lucruri uimitoare cu el. Aceasta este puterea Symfony. Invatarea elementelor de
-baza este usoara, si in cele ce urmeaza veti vedea ca aceasta simplicitate este
-ascunsa sub o arhitectura foarte flexibila.
+Nu ați lucrat decât de aproape 20 de minute cu Symfony și deja puteți realiza
+lucruri uimitoare cu el. Aceasta este puterea Symfony. Învățarea elementelor de
+bază este ușoară, și în cele ce urmează veți vedea că această simplitate este
+ascunsă sub o arhitectură foarte flexibilă.
 
-Dar sa nu ne grabim. Mai intai, trebuie sa aflati mai multe despre controlere,
-iar acesta este exact subiectul urmatoarei parti a acestui tutorial. Sunteti
-pregatit pentru inca 10 minute alaturi de Symfony?
+Dar să nu ne grăbim. Mai întâi, trebuie să aflați mai multe despre controlere,
+iar acesta este exact subiectul următoarei părți a acestui tutorial. Sunteți
+pregătit pentru încă 10 minute alături de Symfony?

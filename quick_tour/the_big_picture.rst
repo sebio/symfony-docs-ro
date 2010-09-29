@@ -1,31 +1,32 @@
-Imaginea de Ansamblu
+﻿Imaginea de ansamblu
 ====================
 
-Doriti sa incercati Symfony2 si nu aveti la dispozitie decat 10 minute? Aceasta
-prima parte a acestui tutorial a fost scrisa pentru dumneavoastra. Ea va explica
-cum sa incepeti rapid cu Symfony2 aratandu-va structura unui proiect simplu gata
-realizat.
+Doriți să încercați Symfony2 și nu aveți la dispoziție decât 10 minute? Această
+primă parte din cadrul acestui tutorial a fost scrisă special pentru
+dumneavoastră. Ea vă explică cum să începeți rapid cu Symfony2 prezentându-vă
+structura unui proiect simplu, gata realizat.
 
-Daca ati mai utilizat un framework web inainte, cu Symfony2 va veti simti in
-largul dumneavoastra.
+Dacă ați mai utilizat un framework web înainte, cu Symfony2 vă veți simți în
+largul dumneavoastră.
 
 .. index::
-   pair: Sandbox; Download
+    pair: Sandbox; Descărcare
 
-Descarcarea si Instalarea
--------------------------
+Descărcare și instalare
+-----------------------
 
-In primul rand, verificati daca aveti instalat PHP 5.3.2 si daca acesta este
-configurat corect pentru lucrul cu un server web, precum Apache.
+În primul rând, verificați dacă aveți instalat PHP 5.3.2 (sau o versiune mai
+nouă) și dacă acesta este configurat corect pentru lucrul cu un server web,
+precum Apache.
 
-Sunteti gata? Sa incepem prin a descarca Symfony. Pentru a incepe chiar mai
-rapid, vom folosi "Symfony sandbox". Acesta este un proiect Symfony unde toate
-librariile necesare si cateva controlere simple sunt deja incluse; configurarea
-primara este de asemenea realizata. Marele avantaj al sandbox-ului asupra altor
-tipuri de instalare este ca puteti incepe sa experimentati cu Symfony imediat.
+Sunteți gata? Să începem prin a descărca Symfony. Pentru a începe chiar mai
+repede, vom folosi "Symfony Sandbox". Acesta este un proiect Symfony unde toate
+librăriile necesare și câteva controlere simple sunt deja incluse; configurarea
+de bază este de asemenea realizată. Marele avantaj al sandbox-ului asupra altor
+tipuri de instalare este că puteți începe să experimentați cu Symfony imediat.
 
-Descarcati `sandbox`_-ul, si dezarhivati-l in radacina web. Acum ar trebui sa
-aveti un folder ``sandbox/``::
+Descărcați `sandbox`_-ul, și dezarhivați-l în rădăcina web. Acum ar trebui să
+aveți un folder ``sandbox/``::
 
     www/ <- radacina web
         sandbox/ <- folderul dezarhivat
@@ -43,78 +44,78 @@ aveti un folder ``sandbox/``::
             web/
 
 .. index::
-   single: Installation; Check
+    single: Instalare; Verificare
 
-Verificarea Configuratiei
+Verificarea configurației
 -------------------------
 
-Pentru a evita unele probleme nedorite, verificati mai intai daca aveti o
-configuratie capabila de a rula un proiect Symfony solicitand urmatorul URL:
+Pentru a evita unele probleme nedorite, verificați mai întâi dacă aveți o
+configurație capabilă să ruleze un proiect Symfony solicitând următorul URL:
 
     http://localhost/sandbox/web/check.php
 
-Cititi cu atentie rezultatul scriptului si remediati orice problema pe care
-acesta o gaseste.
+Citiți cu atenție rezultatul scriptului și remediati orice problemă pe care
+acesta o găsește.
 
-Acum, solicitati prima pagina web "adevarata" Symfony:
+Acum, solicitați prima pagină web "adevărată" Symfony:
 
     http://localhost/sandbox/web/index_dev.php/
 
-Symfony ar trebui sa va felicite pentru efortul dumneavoastra de pana acum!
+Symfony ar trebui să vă felicite pentru efortul dumneavoastră de până acum!
 
-Prima Aplicatie
+Prima aplicație
 ---------------
 
-Sandbox-ul vine insotit de o simpla ":term:`aplicatie`" Hello World, aceasta
-fiind cea pe care o vom folosi pentru a afla mai multe despre Symfony. Accesati
-urmatorul URL pentru a fi intampinati de catre Symfony (inlocuiti Fabien cu
-prenumele dumneavoastra):
+Sandbox-ul vine însoțit de o simplă ":term:`aplicație`" Hello World, aceasta
+fiind cea pe care o vom folosi pentru a afla mai multe despre Symfony. Accesați
+următorul URL pentru a fi întâmpinați de către Symfony (înlocuiți Fabien cu
+prenumele dumneavoastră):
 
     http://localhost/sandbox/web/index_dev.php/hello/Fabien
 
-Ce se intampla aici? Sa analizam URL-ul:
+Ce se întâmplă aici? Să analizăm URL-ul:
 
-.. index:: Front Controller
+.. index:: Controler frontal
 
-* ``index_dev.php``: Acesta este un "controler frontal". El reprezinta punctul
-  unic de intrare al aplicatiei si raspunde tuturor cererilor utilizatorului;
+* ``index_dev.php``: Acesta este un "controler frontal". El reprezintă punctul
+  unic de intrare al aplicației și răspunde tuturor cererilor utilizatorului;
 
-* ``/hello/Fabien``: Aceasta reprezinta calea "virtuala" catre resursa pe care
-  utilizatorul doreste sa o acceseze.
+* ``/hello/Fabien``: Aceasta reprezintă calea "virtuală" către resursa pe care
+  utilizatorul dorește să o acceseze.
 
-Responsabilitatea dumneavoastra ca programator este aceea de a scrie codul care
-leaga cererea utilizatorului (``/hello/Fabien``) de resursa asociata acesteia
+Responsabilitatea dumneavoastră ca programator este aceea de a scrie codul care
+leagă cererea utilizatorului (``/hello/Fabien``) de resursa asociată acesteia
 (``Hello Fabien!``).
 
 .. index::
-   single: Configuration
+    single: Configurare
 
-Configurarea
-~~~~~~~~~~~~
+Configurare
+~~~~~~~~~~~
 
-Cum realizeaza Symfony rutarea cererii catre codul dumneavoastra? Pur si simplu
-citind cateva fisiere de configurare.
+Cum realizează Symfony rutarea cererii către codul dumneavoastră? Pur și simplu
+citind câteva fișiere de configurare.
 
-Toate fisiere de configurare Symfony2 pot fi scrise fie in PHP, XML sau `YAML`_
-(YAML este un format simplu care face descrierea setarilor de configurare foarte
-usoara).
+Toate fișiere de configurare Symfony2 pot fi scrise fie în PHP, XML sau `YAML`_
+(YAML este un format simplu care face descrierea setărilor de configurare foarte
+ușoară).
 
 .. tip::
 
-   Sandbox-ul utilizeaza in mod implicit YAML, dar dumneavoastra puteti comuta
-   foarte usor catre XML sau PHP editand fisierul ``app/AppKernel.php``. Puteti
-   comuta acum urmarind instructiunile aflate in partea de jos a fisierului
-   ``app/AppKernel.php`` (tutorialele prezinta configurarea in toate formatele
-   suportate).
+    Sandbox-ul utilizează în mod implicit YAML, dar dumneavoastră puteți comuta
+    foarte ușor către XML sau PHP editând fișierul ``app/AppKernel.php``. Puteți
+    comuta acum urmărind instrucțiunile aflate în partea de jos a fișierului
+    ``app/AppKernel.php`` (tutorialele prezintă configurarea în toate formatele
+    suportate).
 
 .. index::
-   single: Routing
-   pair: Configuration; Routing
+    single: Rutare
+    pair: Configurare; Rutare
 
-Rutarea
-~~~~~~~
+Rutare
+~~~~~~
 
-Symfony ruteaza cererea citind fisierul de configurare al rutelor:
+Symfony rutează cererea citind fișierul de configurare al rutelor:
 
 .. configuration-block::
 
@@ -158,10 +159,10 @@ Symfony ruteaza cererea citind fisierul de configurare al rutelor:
 
         return $collection;
 
-Primele linii ale fisierului de configurare al rutelor definesc ce cod trebuie
-chemat atunci cand utilizatorul solicita resursa "``/``". Mult mai interesanta
-este ultima parte, care importa un alt fisier de configurare cu urmatorul
-continut:
+Primele linii ale fișierului de configurare al rutelor definesc ce cod trebuie
+executat atunci când utilizatorul solicită resursa "``/``". Mult mai interesantă
+este ultima parte, cea care importă un alt fișier de configurare cu următorul
+conținut:
 
 .. configuration-block::
 
@@ -199,23 +200,23 @@ continut:
 
         return $collection;
 
-Iata! Dupa cum puteti observa, tiparul resursei "``/hello/:name``" (un sir
-de caractere care incepe cu doua puncte, asemena lui ``:name``, reprezinta un
+Iată! După cum puteți observa, tiparul resursei "``/hello/:name``" (un șir
+de caractere care începe cu două puncte, asemena lui ``:name``, reprezintă un
 substituent) este atribuit unui controler, referit de valoarea parametrului
 ``_controller``.
 
 .. index::
-   single: Controller
-   single: MVC; Controller
+    single: Controler
+    single: MVC; Controler
 
 Controlere
 ~~~~~~~~~~
 
-Controlerul este responsabil sa intoarca o reprezentare a resursei (de obicei
-HTML) si este definit sub forma de clasa PHP:
+Controlerul este responsabil să întoarcă o reprezentare a resursei (de obicei
+HTML) și este definit sub formă de clasă PHP:
 
 .. code-block:: php
-   :linenos:
+    :linenos:
 
     // src/Application/HelloBundle/Controller/HelloController.php
 
@@ -231,40 +232,41 @@ HTML) si este definit sub forma de clasa PHP:
         }
     }
 
-Codul este destul de intuitiv, dar sa explicam acest cod linie cu linie:
+Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
 
-* *linia 3*: Symfony profita de avantajul noilor facilitati PHP 5.3 si, ca
-  atare, toate controlerele sunt corect incadrate intr-un namespace
+* *linia 3*: Symfony profită de avantajul noilor facilități PHP 5.3 și, ca
+  atare, toate controlerele sunt corect încadrate într-un namespace
   (namespace-ul este identic cu prima parte a valorii parametrului de rutare
-  ``_controller``: ``HelloBundle``).
+  ``_controller``, in cazul nostru ``HelloBundle``).
 
 * *linia 7*: Numele controlerului este reprezentat de concatenarea celei de-a
-  doua parti a valorii parametrului de rutare ``_controller`` (``Hello``) si
-  ``Controller``. El extinde clasa preexistenta ``Controller``, care ofera
-  scurtaturi utile (dupa cum vom vedea mai tarziu in acest tutorial).
+  doua părți a valorii parametrului de rutare ``_controller`` (``Hello``) cu
+  șirul ``Controller``. El extinde clasa preexistentă ``Controller``, care oferă
+  scurtături utile (după cum vom vedea mai târziu în acest tutorial).
 
-* *linia 9*: Fiecare controler este compus din mai multe actiuni. Asa cum este
-  specificat in configurare, pagina hello este manipulata de actiunea ``index``
-  (a treia parte a parametrului de rutare ``_controller``). Aceasta metoda
-  primeste valorile substituentilor ca argumente (in cazul nostru ``$name``).
+* *linia 9*: Fiecare controler este compus din mai multe acțiuni. Așa cum este
+  specificat în configurare, pagina *hello* este manipulată de acțiunea
+  ``index`` (a treia parte a parametrului de rutare ``_controller``). Această
+  metodă primește, ca argumente, valorile substituenților (în cazul nostru
+  ``$name``).
 
-* *linia 11*: Metoda ``render()`` incarca si reda un sablon
+* *linia 11*: Metoda ``render()`` încarcă și redă un șablon
   (``HelloBundle:Hello:index``) cu variabilele trecute prin intermediul celui
   de-al doilea argument.
 
-Dar ce este un :term:`bundle`? Intregul cod pe care il scrieti in cadrul unui
-proiect Symfony este organizat in bundle-uri. In vorbirea Symfony, un bundle
-reprezinta un set structurat de fisiere (fisiere PHP, stylesheets-uri,
-JavaScript-uri, imagini, ...) care poate fi usor impartasit cu alti
-dezvoltatori. In exemplul nostru nu avem decat un bundle, ``HelloBundle``.
+Dar ce este un :term:`bundle`? Întregul cod pe care îl scrieți în cadrul unui
+proiect Symfony este organizat în bundle-uri. În vorbirea Symfony, un bundle
+reprezintă un set structurat de fișiere (PHP, foi de stil, JavaScript-uri,
+imagini etc.) care poate fi ușor împărtășit cu alți dezvoltatori. În exemplul
+nostru nu avem decât un singur bundle, ``HelloBundle``.
 
-Sabloane
+Șabloane
 ~~~~~~~~
 
-Controlerul reda sablonul ``HelloBundle:Hello:index.php``. Dar in ce consta
-numele sablonului? ``HelloBundle`` reprezinta numele bundle-ului, ``Hello`` este
-numele controlerului, iar ``index.php`` numele fisierului sablonului. Sablonul
-insusi este alcatuit din cod HTML si expresii simple PHP:
+Controlerul redă șablonul ``HelloBundle:Hello:index.php``. Dar în ce constă
+numele șablonului? ``HelloBundle`` reprezintă numele bundle-ului, ``Hello`` este
+numele controlerului, iar ``index.php`` numele fișierului șablonului. Șablonul
+însuși este alcătuit din cod HTML și expresii PHP simple:
 
 .. code-block:: html+php
 
@@ -273,53 +275,53 @@ insusi este alcatuit din cod HTML si expresii simple PHP:
 
     Hello <?php echo $name ?>!
 
-Felicitari! Tocmai ati privit primele secvente de cod ale Symfony. Nu a fost
-chiar atat de greu, nu-i asa? Symfony face cu adevarat usoara implementarea
-site-urilor web, mult mai bine si mai rapid.
+Felicitări! Tocmai ați urmărit primele secvențe de cod în Symfony. Nu a fost
+chiar atât de greu, nu-i așa? Symfony face cu adevărat ușoară implementarea
+site-urilor web, mult mai bine și mai rapid.
 
 .. index::
-   single: Environment
-   single: Configuration; Environment
+    single: Mediu
+    single: Configurare; Mediu
 
 Medii
 -----
 
-Acum ca aveti o mai buna intelegere despre modul in care functioneaza Symfony,
-puteti arunca o privire in josul paginii; veti remarca o mica bara ce contine
-emblemele Symfony si PHP. Aceasta este denumita "Web Debug Toolbar" si este
-cel mai bun prieten al dezvoltatorului. Bine inteles, o astfel de unealta nu
-trebuie afisata cand lansati aplicatia pe serverele de productie. Din acest
-motiv veti gasi un alt controler frontal (``index.php``) in folderul ``web/``,
-optimizat pentru mediul de productie:
+Acum că aveți o mai bună înțelegere despre modul în care funcționează Symfony,
+puteți arunca o privire în josul paginii *hello*; veți remarca o mică bară ce
+conține emblemele Symfony și PHP. Aceasta este denumită "Web Debug Toolbar" și
+este cel mai bun prieten al dezvoltatorului. Bine înțeles, o astfel de unealtă
+nu trebuie afișată când lansați aplicația pe serverele de producție. Din acest
+motiv veți găsi un alt controler frontal (``index.php``) în folderul ``web/``,
+optimizat pentru mediul de producție:
 
     http://localhost/sandbox/web/index.php/hello/Fabien
 
-Daca aveti instalat ``mod_rewrite``, puteti sa omiteti partea ``index.php`` a
+Dacă aveți instalat ``mod_rewrite``, puteți să omiteți partea ``index.php`` a
 URL-ului:
 
     http://localhost/sandbox/web/hello/Fabien
 
-Nu in cele din urma, pe serverele de productie, trebuie sa setati radacina web
-pe folderul ``web/``, pentru a securiza aplicatia si pentru a avea un URL mai
+Nu în cele din urmă, pe serverele de producție, trebuie să setați rădăcina web
+pe folderul ``web/``, pentru a securiza aplicația și pentru a avea un URL mai
 aspectuos:
 
     http://localhost/hello/Fabien
 
-Pentru a face mediul de productie cat se poate de rapid, Symfony mentine un
-cache in folderul ``app/cache/``. Cand efectuati modificari, trebuie sa
-eliminati manual fisierele din cache. Din acest motiv trebuie sa folositi
-intotdeauna controlerul frontal de dezvoltare (``index_dev.php``) atunci cand
-lucrati la un proiect.
+Pentru a face mediul de producție cât se poate de rapid, Symfony menține un
+cache în folderul ``app/cache/``. Când efectuați modificări, trebuie să
+eliminați manual fișierele din cache. Din acest motiv trebuie să folosiți
+întotdeauna controlerul frontal de dezvoltare (``index_dev.php``) atunci când
+lucrați la un proiect.
 
-Ganduri de Final
-----------------
+Concluzii
+---------
 
-Cele 10 minute s-au terminat. De acum, ar trebui sa fiti capabil sa creati
-propriile dumneavoastra rute, controlere si sabloane. Ca un exercitiu, incercati
-sa creati ceva mult mai util decat o aplicatie de tipul Hello World! Daca
-sunteti dornic sa invatati mai multe despre Symfony, puteti citi urmatoarea
+Cele 10 minute s-au terminat. De acum, ar trebui să fiți capabil să creați
+propriile dumneavoastră rute, controlere și șabloane. Ca un exercițiu, încercați
+să creați ceva mult mai util decât o aplicație de tipul *Hello World*! Dacă
+sunteți dornic să învățați mai multe despre Symfony, puteți citi următoarea
 parte a acestui tutorial chiar acum, unde vom afla mai multe despre sistemul
-de sabloane.
+de șablonare.
 
 .. _sandbox: http://symfony-reloaded.org/code#sandbox
 .. _YAML:    http://www.yaml.org/

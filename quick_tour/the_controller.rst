@@ -1,27 +1,27 @@
-.. index::
-   single: Controller
-   single: MVC; Controller
+﻿.. index::
+    single: Controler
+    single: MVC; Controler
 
 Controlerul
 ===========
 
-Inca ati ramas cu noi dupa primele doua parti? Sunteti pe cale sa deveniti un
-dependent de Symfony2! Fara a mai pierde vremea, haideti sa descoperim ce poate
-face controlerul pentru dumneavoastra.
+Încă ați rămas cu noi după primele două părți? Sunteți pe cale să deveniți un
+dependent de Symfony2! Fără a mai pierde vremea, haideți să descoperim ce poate
+face controlerul pentru dumneavoastră.
 
 .. index::
-   single: Formats
-   single: Controller; Formats
-   single: Routing; Formats
-   single: View; Formats
+    single: Formate
+    single: Controler; Formate
+    single: Rutare; Formate
+    single: Vedere; Formate
 
-Formatele
----------
+Formate
+-------
 
-In zilele noastre, o aplicatie web trebuie sa fie capabila sa furnizeze mai mult
-decat pagini HTML. De la XML-ul pentru feed-urile RSS, pana la JSON-ul pentru
-cererile Ajax, exista o multime de formate de unde putem alege. Suportul acestor
-formate in Symfony este simplu. Editati ``routing.yml`` si adaugati parametrul
+În zilele noastre, o aplicație web trebuie să fie capabilă să furnizeze mai mult
+decât pagini HTML. De la XML-ul pentru feed-urile RSS, până la JSON-ul pentru
+cererile Ajax, există o mulțime de formate de unde putem alege. Suportul acestor
+formate în Symfony este simplu. Editați ``routing.yml`` și adăugați parametrul
 ``_format`` cu valoarea ``xml``:
 
 .. configuration-block::
@@ -49,7 +49,7 @@ formate in Symfony este simplu. Editati ``routing.yml`` si adaugati parametrul
             '_format'     => 'xml',
         )));
 
-Apoi, adaugati sablonul ``index.xml.php`` alaturi de ``index.php``:
+Apoi, adăugați șablonul ``index.xml.php`` alături de ``index.php``:
 
 .. code-block:: xml+php
 
@@ -58,10 +58,10 @@ Apoi, adaugati sablonul ``index.xml.php`` alaturi de ``index.php``:
         <name><?php echo $name ?></name>
     </hello>
 
-Asta a fost tot. Nu este evoie sa modificati controlerul. Pentru formatele
-standard, Symfony va alege in mod automat cel mai bun header ``Content-Type``
-pentru raspuns. Daca doriti sa folositi diferite formate pentru o singura
-actiune, folositi in schimb substituentul ``:_format`` in cadrul tiparului:
+Asta a fost tot. Nu este evoie să modificați controlerul. Pentru formatele
+standard, Symfony va alege în mod automat cel mai bun header ``Content-Type``
+pentru răspuns. Dacă doriți să folosiți diferite formate pentru o singură
+acțiune, folosiți în schimb substituentul ``:_format`` în cadrul tiparului:
 
 .. configuration-block::
 
@@ -93,22 +93,22 @@ actiune, folositi in schimb substituentul ``:_format`` in cadrul tiparului:
         )));
 
 Controlerul poate fi acum solicitat pentru URL-uri ca ``/hello/Fabien.xml`` sau
-``/hello/Fabien.json``. Deoarece valoarea implicita pentru ``_format`` este
-``html``, ``/hello/Fabien`` si ``/hello/Fabien.html`` vor avea ambele formatul
+``/hello/Fabien.json``. Deoarece valoarea implicită pentru ``_format`` este
+``html``, ``/hello/Fabien`` și ``/hello/Fabien.html`` vor avea ambele formatul
 ``html``.
 
-Parametrul ``requirements`` defineste expresia regulata cu care substituentul
-trebuie sa se potriveasca. In exemplul dat, daca incercati sa solicitati resursa
-``/hello/Fabien.js``, veti primi eroarea HTTP 404, deoarece URL-ul nu
-indeplineste cerinta specificata in ``_format``.
+Parametrul ``requirements`` definește expresia regulată cu care substituentul
+trebuie să se potrivească. În exemplul dat, dacă încercați să solicitați resursa
+``/hello/Fabien.js``, veți primi eroarea HTTP 404, deoarece URL-ul nu
+îndeplinește cerința specificată în ``_format``.
 
 .. index::
-   single: Response
+    single: Răspuns
 
 Obiectul Response
 -----------------
 
-Acum, sa ne intoarcem la controlerul ``Hello``::
+Acum, să ne întoarcem la controlerul ``Hello``::
 
     // src/Application/HelloBundle/Controller/HelloController.php
 
@@ -117,9 +117,9 @@ Acum, sa ne intoarcem la controlerul ``Hello``::
         return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
     }
 
-Metoda ``render()`` reda un sablon si intoarce un obiect ``Response``. Raspunsul
-poate fi optimizat inainte sa fie trimis la browser, de exemplu sa fie schimbat
-``Content-Type``-ul implicit::
+Metoda ``render()`` redă un șablon și întoarce un obiect ``Response``. Răspunsul
+poate fi optimizat înainte să fie trimis către browser, de exemplu să fie
+schimbat ``Content-Type``-ul implicit::
 
     public function indexAction($name)
     {
@@ -129,26 +129,26 @@ poate fi optimizat inainte sa fie trimis la browser, de exemplu sa fie schimbat
         return $response;
     }
 
-Pentru sabloane simple, puteti chiar sa creati manual un obiect ``Response`` si
-sa salvati cateva milisecunde::
+Pentru șabloane simple, puteți chiar să creați manual un obiect ``Response`` și
+să salvați câteva milisecunde::
 
     public function indexAction($name)
     {
         return $this->createResponse('Hello '.$name);
     }
 
-Aceasta cale este deosebit de utila cand controlerul trebuie sa intoarca un
-raspuns JSON pentru o cerere Ajax
+Această metodă este deosebit de utilă atunci când controlerul trebuie să
+întoarcă un răspuns JSON pentru o cerere Ajax.
 
 .. index::
-   single: Exceptions
+    single: Excepții
 
-Managementul Erorilor
+Managementul erorilor
 ---------------------
 
-Cand lucrurile nu sunt gasite, trebuie sa va "jucati" cu protocolul HTTP si sa
-intoarceti un raspuns 404. Acest lucru se poate realiza foarte usor prin
-aruncarea unei exceptii::
+Când lucrurile nu sunt găsite, trebuie să vă "jucați" cu protocolul HTTP și să
+întoarceți un răspuns 404. Acest lucru se poate realiza foarte ușor prin
+aruncarea unei excepții::
 
     use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -162,46 +162,46 @@ aruncarea unei exceptii::
         return $this->render(...);
     }
 
-``NotFoundHttpException`` va intoarce un raspuns HTTP 404 inapoi la browser. In
-mod similar, ``ForbiddenHttpException`` intoarce eroarea 403 si
+``NotFoundHttpException`` va întoarce un răspuns HTTP 404 înapoi la browser. În
+mod similar, ``ForbiddenHttpException`` întoarce eroarea 403 și
 ``UnauthorizedHttpException`` eroarea 401. Pentru orice alt cod de eroare HTTP,
-puteti sa utilizati baza ``HttpException`` si sa specificati eroarea HTTP prin
-intermediul argumentelor exceptiei::
+puteți să utilizați baza ``HttpException`` și să specificați eroarea HTTP prin
+intermediul argumentelor excepției::
 
     throw new HttpException('Unauthorized access.', 401);
 
 .. index::
-   single: Controller; Redirect
-   single: Controller; Forward
+    single: Controler; Redirecționare
+    single: Controler; Înaintare
 
-Redirectionarea si Transmiterea
--------------------------------
+Redirecționare și înaintare
+---------------------------
 
-Daca doriti sa redirectionati utilizatorul catre alta pagina, folositi metoda
+Dacă doriți să redirecționați utilizatorul către altă pagină, folosiți metoda
 ``redirect()``::
 
     $this->redirect($this->generateUrl('hello', array('name' => 'Lucas')));
 
-Metoda ``generateUrl()`` este aceeasi cu metoda ``generate()`` folosita anterior
-prin intermediul helper-ului ``router``. Ea preia ca argumente numele rutei si
-un array de parametrii si intoare URL-ul asociat.
+Metoda ``generateUrl()`` este asemenea metodei ``generate()`` folosită anterior
+prin intermediul helper-ului ``router``. Ea preia ca argumente numele rutei și
+un array de parametri, întorcând URL-ul asociat.
 
-Puteti de asemenea sa transmiteti actiunea catre alta actiune cu ajutorul
-metodei ``forward()``. Asemenea helper-ului ``actions``, ea realizeaza o
-sub-cerere interna, dar intoarce obiectul ``Response`` pentru a permite
-modificari ulterioare daca nevoia o va impune::
+Puteți de asemenea să înaintați acțiunea curentă către altă acțiune cu ajutorul
+metodei ``forward()``. Asemenea helper-ului ``actions``, ea realizează o
+sub-cerere internă, dar întoarce obiectul ``Response`` pentru a permite
+modificări ulterioare dacă nevoia o va impune::
 
     $response = $this->forward('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
 
     // modificati raspunsul sau il intoarceti direct
 
 .. index::
-   single: Request
+    single: Cerere
 
 Obiectul Request
 ----------------
 
-Pe langa valorile substituentilor de rutare, controlerul are de asemenea acces
+Pe lângă valorile substituenților de rutare, controlerul are de asemenea acces
 la obiectul ``Request``::
 
     $request = $this['request'];
@@ -214,7 +214,7 @@ la obiectul ``Request``::
 
     $request->request->get('page'); // obtine un parametru $_POST
 
-Intr-un sablon, puteti de asemenea sa accesati obiectul ``Request`` prin
+Într-un șablon, puteți de asemenea să accesați obiectul ``Request`` prin
 intermediul helper-ului ``request``:
 
 .. code-block:: html+php
@@ -224,13 +224,14 @@ intermediul helper-ului ``request``:
 Sesiunea
 --------
 
-Chiar daca protocolul HTTP este apatrid, Symfony furnizeaza obiectul sesiune
-care reprezinta clientul (fie el o persoana reala ce utilizeaza un browser, fie
-un bot sau un serviciu web). Intre doua cereri, Symfony stocheaza atributele
-intr-un cookie utilizand sistemul nativ de sesiuni al PHP.
+Chiar dacă protocolul HTTP este imparțial, Symfony furnizează obiectul sesiune
+care reprezintă clientul (fie el o persoană reală ce utilizează un browser, fie
+un bot sau un serviciu web). Între două cereri, Symfony menține atributele
+sesiunii prin intermediul unui cookie, utilizând sistemul nativ de sesiuni al
+PHP.
 
-Stocarea si recuperarea informatiei din sesiune poate fi usor realizata din
-orice controler::
+Stocarea și recuperarea informației din sesiune poate fi ușor realizată la
+nivelul oricărui controler::
 
     // stocheaza un atribut pentru reutilizare in timpul unei cereri ulterioare
     $this['request']->getSession()->set('foo', 'bar');
@@ -241,8 +242,8 @@ orice controler::
     // seteaza localizarea utilizatorului
     $this['request']->getSession()->setLocale('fr');
 
-Puteti de asemenea sa stocati mesaje de mici dimensiuni care vor fi disponibile
-doar pentru cererea imediat urmatoare::
+Puteți de asemenea să stocați mesaje de mici dimensiuni care vor fi disponibile
+doar pentru cererea imediat următoare::
 
     // stocheaza un mesaj pentru cererea imediat urmatoare (intr-un controler)
     $this['session']->setFlash('notice', 'Felicitari, actiunea dvs. a reusit!');
@@ -250,10 +251,11 @@ doar pentru cererea imediat urmatoare::
     // afiseaza mesajul in urmatoarea cerere (intr-un sablon)
     <?php echo $view['session']->getFlash('notice') ?>
 
-Ganduri de Final
-----------------
+Concluzii
+---------
 
-Asta a fost tot, si nici nu sunt sigur daca am consumat cele 10 minute alocate.
-In partea anterioara, am vazut cum sa extindem sistemul de sablonare cu ajutorul
-helper-ilor. Numai ca, in Symfony2, orice poate fi extins sau inlocuit cu
-bundle-uri. Acesta este si subiectul urmatoarei parti a acestui tutorial.
+Asta a fost tot, și nici nu sunt sigur dacă am consumat cele 10 minute alocate.
+În partea anterioară, am văzut cum să extindem sistemul de șablonare cu ajutorul
+helper-ilor. Numai că, în Symfony2, orice poate fi extins sau înlocuit prin
+intermediul bundle-urilor. Acesta este și subiectul următoarei părți a acestui
+tutorial.

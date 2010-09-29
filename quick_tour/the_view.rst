@@ -1,29 +1,29 @@
-Vederea
+﻿Vederea
 =======
 
-Dupa ce ati citit prima parte a acestui tutorial, ati decis ca Symfony2 merita
-inca 10 minute. Foarte bine pentru dumneavoastra. In aceasta a doua parte veti
-afla mai multe despre sistemul de sabloane Symfony2. Dupa cum ati observat mai
-devreme, Symfony utilizeaza PHP ca motor de sabloanare implicit, adaugand niste
-facilitati suplimentare pentru al face mai puternic.
+După ce ați citit prima parte a acestui tutorial, ați decis că Symfony2 merită
+încă 10 minute. Foarte bine pentru dumneavoastră. În această a doua parte veți
+afla mai multe despre sistemul de șablonare Symfony2. După cum ați observat mai
+devreme, Symfony utilizează PHP ca motor de șablonare implicit, adăugând niște
+facilități suplimentare pentru al face mai puternic.
 
-In loc de PHP, puteti de asemenea sa utilizati `Twig`_ (el face ca sabloanele
-dumneavoastra sa fie mai concise si mai prietenoase pentru designerii web).
-Daca preferati sa utilizati `Twig`, cititi capitolul alternativ
+În loc de PHP, puteți de asemenea să utilizați `Twig`_ (el face ca șabloanele
+dumneavoastră să fie mai concise și mai prietenoase pentru designerii web).
+Dacă preferați să utilizați `Twig`, citiți capitolul alternativ
 :doc:`Vederea cu Twig <the_view_with_twig>`.
 
 .. index::
-  single: Templating; Layout
-  single: Layout
+    single: Șablonare; Layout
+    single: Layout
 
-Decorarea sabloanelor
+Decorarea șabloanelor
 ---------------------
 
-De cele mai multe ori, sabloanele din cadrul unui proiect impartasesc elemente
-comune, precum bine cunoscutul antet si subsol. In Symfony, ne place sa abordam
-problema diferit: un sablon poate fi decorat de un altul.
+De cele mai multe ori, șabloanele din cadrul unui proiect împărtășesc elemente
+comune, precum bine cunoscutul antet și subsol. În Symfony, ne place să abordăm
+problema diferit: un șablon poate fi decorat de un altul.
 
-Sablonul ``index.php`` este decorat de catre ``layout.php``, multumita apelarii
+Șablonul ``index.php`` este decorat de către ``layout.php``, mulțumită apelării
 metodei ``extend()``:
 
 .. code-block:: html+php
@@ -33,12 +33,12 @@ metodei ``extend()``:
 
     Hello <?php echo $name ?>!
 
-Notatia ``HelloBundle::layout.php`` va suna familiar, nu-i asa? Este aceeasi
-notatie ca aceea de referentiere a unui sablon. Partea ``::`` nu inseamna decat
-ca elementul controler este gol, prin urmare fisierul corespunzator este stocat
-direct in ``views/``.
+Notația ``HelloBundle::layout.php`` vă sună familiar, nu-i așa? Este aceeași
+notație ca aceea de referențiere a unui șablon. Partea ``::`` nu înseamnă decât
+că elementul controler este gol, prin urmare fișierul corespunzător este stocat
+direct în folderul ``views/``.
 
-Acum, sa aruncam o privire asupra fisierului ``layout.php``:
+Acum, să aruncăm o privire asupra fișierului ``layout.php``:
 
 .. code-block:: html+php
 
@@ -49,11 +49,11 @@ Acum, sa aruncam o privire asupra fisierului ``layout.php``:
 
     <?php $view['slots']->output('_content') ?>
 
-Layout-ul insusi este decorat de un alt layout (``::layout.php``). Symfony
-suporta niveluri multiple de decorare: un layout poate sa fie decorat de un
-altul. Cand denumirea bundle-ului lipseste din numele sablonului, vederile sunt
-cautate in folderul ``app/views/``. Acest folder stocheaza vederile globale
-pentru intregul proiect:
+Layout-ul însuși este decorat de un alt layout (``::layout.php``). Symfony
+suportă niveluri multiple de decorare: un layout poate să fie decorat de un
+altul. Când denumirea bundle-ului lipsește din numele șablonului, vederile sunt
+căutate în folderul ``app/views/``. Acest folder stochează vederile globale
+pentru întregul proiect:
 
 .. code-block:: html+php
 
@@ -70,23 +70,23 @@ pentru intregul proiect:
     </html>
 
 Pentru ambele layout-uri, expresia ``$view['slots']->output('_content')`` este
-inlocuita de continutul sablonului copil, respectiv ``index.php`` si
-``layout.php`` (mai multe despre sloturi in sectiunea urmatoare).
+înlocuită de conținutul șablonului copil, respectiv ``index.php`` și
+``layout.php`` (mai multe despre sloturi în secțiunea următoare).
 
-Dupa cum puteti observa, Symfony ofera metode prin intermediul misteriosului
-obiect ``$view``. Intr-un sablon, variabila ``$view`` este mereu disponibila si
-referentiaza un obiect special care furnizeaza un set de metode si proprietati
-ce alcatuiesc motorul de sablonare.
+După cum puteți observa, Symfony oferă metode prin intermediul misteriosului
+obiect ``$view``. Într-un șablon, variabila ``$view`` este mereu disponibilă și
+referențiază un obiect special care furnizează un set de metode și proprietăți
+ce alcătuiesc motorul de șablonare.
 
 .. index::
-   single: Templating; Slot
-   single: Slot
+    single: Șablonare; Slot
+    single: Slot
 
 Sloturi
 -------
 
-Un slot este un fragment de cod, definit intr-un sablon si refolosibil in orice
-layout ce decoreaza sablonul. In sablonul ``index.php``, definiti slotul
+Un slot este un fragment de cod, definit într-un șablon și refolosibil în orice
+layout ce decorează șablonul. În șablonul ``index.php``, definiți slotul
 ``title``:
 
 .. code-block:: html+php
@@ -98,7 +98,7 @@ layout ce decoreaza sablonul. In sablonul ``index.php``, definiti slotul
 
     Hello <?php echo $name ?>!
 
-Layout-ul de baza contine deja codul necesar afisarii titlului in antet:
+Layout-ul de bază conține deja codul necesar afișării titlului în antet:
 
 .. code-block:: html+php
 
@@ -108,11 +108,11 @@ Layout-ul de baza contine deja codul necesar afisarii titlului in antet:
         <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
     </head>
 
-Metoda ``output()`` insereaza continutul unui slot si, optional, retine o
-valoare implicita pentru cazul cand slotul nu este definit. ``_content`` nu este
-decat un slot special care contine redarea sablonului copil.
+Metoda ``output()`` inserează conținutul unui slot și, opțional, reține o
+valoare implicită pentru cazul când slotul nu este definit. ``_content`` nu este
+decât un slot special care conține redarea șablonului copil.
 
-Pentru sloturi de dimensiuni mari, exista de asemenea o sintaxa extinsa:
+Pentru sloturi de dimensiuni mari, există de asemenea o sintaxă extinsă:
 
 .. code-block:: html+php
 
@@ -121,22 +121,22 @@ Pentru sloturi de dimensiuni mari, exista de asemenea o sintaxa extinsa:
     <?php $view['slots']->stop() ?>
 
 .. index::
-   single: Templating; Include
+    single: Șablonare; Includere
 
-Includerea altor sabloane
+Includerea altor șabloane
 -------------------------
 
-Cea mai buna cale de a impartasi un fragment de cod intre mai multe sabloane
-distincte este aceea de a defini un sablon care poate fi inclus in altul.
+Cea mai bună cale de a împărtăși un fragment de cod între mai multe șabloane
+distincte este aceea de a defini un șablon care poate fi inclus în altul.
 
-Creati sablonul ``hello.php``:
+Creați șablonul ``hello.php``:
 
 .. code-block:: html+php
 
     <!-- src/Application/HelloBundle/Resources/views/Hello/hello.php -->
     Hello <?php echo $name ?>!
 
-Si modificati sablonul ``index.php`` pentru al include:
+Și modificați șablonul ``index.php`` pentru al include:
 
 .. code-block:: html+php
 
@@ -145,29 +145,29 @@ Si modificati sablonul ``index.php`` pentru al include:
 
     <?php echo $view->render('HelloBundle:Hello:hello.php', array('name' => $name)) ?>
 
-Metoda ``render()`` evalueaza si intoarce continutul unui alt sablon (este exact
-aceeasi metoda ca cea utilizata in controler).
+Metoda ``render()`` evaluează și întoarce conținutul unui alt șablon (este exact
+aceeași metodă ca cea utilizată la nivel de controler).
 
 .. index::
-   single: Templating; Embedding Pages
+    single: Șablonare; Integrare pagini
 
-Integrarea altor Actiuni
+Integrarea altor acțiuni
 ------------------------
 
-Ce trebuie facut daca dorim sa integram rezultatul unei alte actiuni intr-un
-sablon? Acest lucru este extrem de util cand se lucreaza cu Ajax, sau cand
-sablonul integrat necesita anunite variabile indisponibile in sablonul
+Ce trebuie făcut dacă dorim să integrăm rezultatul unei alte acțiuni într-un
+șablon? Acest lucru este extrem de util când se lucrează cu Ajax, sau când
+șablonul integrat necesită anumite variabile indisponibile în șablonul
 principal.
 
-Daca veti crea actiunea ``fancy``, si doriti sa o includeti in sablonul
-``index.php``, nu trebuie decat sa utilizati urmatorul cod:
+Dacă veți crea acțiunea ``fancy``, și doriți să o includeți în șablonul
+``index.php``, nu trebuie decât să utilizați următorul cod:
 
 .. code-block:: html+php
 
     <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
     <?php $view['actions']->output('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green')) ?>
 
-Aici, sirul de caractere ``HelloBundle:Hello:fancy`` se refera la actiunea
+Aici, șirul de caractere ``HelloBundle:Hello:fancy`` se referă la acțiunea
 ``fancy`` a controlerului ``Hello``::
 
     // src/Application/HelloBundle/Controller/HelloController.php
@@ -186,28 +186,27 @@ Aici, sirul de caractere ``HelloBundle:Hello:fancy`` se refera la actiunea
     }
 
 Dar unde este definit elementul de array ``$view['actions']``? Asemena lui
-``$view['slots']``, este denumit ajutor de sablon sau helper, iar urmatoarea
-sectiune va vorbeste mai multe despre acestia.
+``$view['slots']``, este denumit ajutor de șablon sau helper, iar următoarea
+secțiune vă vorbește mai multe despre aceștia.
 
 .. index::
-   single: Templating; Helpers
+    single: Șablonare; Ajutori
 
-Ajutorii de Sabloane
---------------------
+Ajutori de șablon
+-----------------
 
-Sistemul de sablonare Symfony poate fi usor extins cu ajutorul helper-ilor.
-Ajutorii de sabloane sunt obiecte PHP care furnizeaza facilitati utile in
-contextul unui sablon. ``actions`` si ``slots`` sunt doi dintre helperii
-inglobati in Symfony.
+Sistemul de șablonare Symfony poate fi ușor extins cu ajutorul helper-ilor.
+Ajutorii sunt obiecte PHP care furnizează facilități utile în contextul unui
+șablon. ``actions`` și ``slots`` sunt doi dintre ajutorii înglobați în Symfony.
 
-Legaturile dintre Pagini
-~~~~~~~~~~~~~~~~~~~~~~~~
+Legături între pagini
+~~~~~~~~~~~~~~~~~~~~~
 
-Cand vorbim de aplicatiile web, crearea legaturilor intre diferite pagini este o
-necesitate. In loc sa folosim hardcoding-ul URL-urilor in sabloane, helper-ul
-``router`` stie cum sa genereze URL-uri bazate pe configuratia rutarii. In
-acest mod, toate URL-urile dumneavoastra pot fi actualizate usor modificand
-configuratia:
+Când vorbim de aplicații web, crearea legăturilor între diferite pagini este o
+necesitate. În loc să folosim hardcoding-ul URL-urilor în șabloane, helper-ul
+``router`` știe cum să genereze URL-uri bazate pe configurația rutării. În
+acest mod, toate URL-urile dumneavoastră pot fi actualizate ușor modificând
+configurarea:
 
 .. code-block:: html+php
 
@@ -215,9 +214,9 @@ configuratia:
         Greet Thomas!
     </a>
 
-Metoda ``generate()`` preia numele rutei si un array de valori ca argumente.
-Numele rutei este cheia principala cu ajutorul careia se identifica ruta, iar
-elementele din array contin valorile substituentilor din tiparul rutei:
+Metoda ``generate()`` preia ca argumente, numele rutei și un array de valori.
+Numele rutei este cheia principală cu ajutorul căreia se identifică ruta, iar
+elementele din array conțin valorile substituenților din tiparul rutei:
 
 .. code-block:: yaml
 
@@ -226,12 +225,12 @@ elementele din array contin valorile substituentilor din tiparul rutei:
         pattern:  /hello/:name
         defaults: { _controller: HelloBundle:Hello:index }
 
-Utilizarea activelor: imagini, JavaScript-uri si foi de stil
+Utilizarea activelor: imagini, JavaScript-uri și foi de stil
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ce ar fi Internet-ul fara imagini, JavaScript-uri si foi de stil? Symfony
-furnizeaza trei helperi pentru a le face fata cu usurinta: ``assets``,
-``javascripts`` si ``stylesheets``:
+Ce ar fi Internet-ul fără imagini, JavaScript-uri și foi de stil? Symfony
+furnizează trei helperi pentru a le face față cu ușurință: ``assets``,
+``javascripts`` și ``stylesheets``:
 
 .. code-block:: html+php
 
@@ -239,40 +238,40 @@ furnizeaza trei helperi pentru a le face fata cu usurinta: ``assets``,
 
     <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" />
 
-Scopul principal al helper-ului ``assets`` este sa faca aplicatia mai portabila.
-Multumita acestui helper, puteti sa mutati folderul radacina al aplicatiei
-oriunde in interiorul radacinii web fara a schimba ceva in codul sabloanelor.
+Scopul principal al helper-ului ``assets`` este să facă aplicația mai portabila.
+Mulțumită acestui helper, puteți să mutați folderul rădăcină al aplicației
+oriunde în interiorul rădăcinii web fără a schimba ceva în codul șabloanelor.
 
-In mod similar, puteti sa gestionati foile de stil si JavaScript-urile prin
-intermediul ajutorilor ``stylesheets`` si ``javascripts``:
+În mod similar, puteți să gestionați foile de stil și JavaScript-urile prin
+intermediul ajutorilor ``stylesheets`` și ``javascripts``:
 
 .. code-block:: html+php
 
     <?php $view['javascripts']->add('js/product.js') ?>
     <?php $view['stylesheets']->add('css/product.css') ?>
 
-Metoda ``add()`` defineste dependentele. Pentru a afisa aceste active, trebuie
-de asemenea sa adaugati urmatorul cod in layout-ul principal:
+Metoda ``add()`` definește dependențele. Pentru a afișa aceste active, trebuie
+de asemenea să adăugați următorul cod în layout-ul principal:
 
 .. code-block:: html+php
 
     <?php echo $view['javascripts'] ?>
     <?php echo $view['stylesheets'] ?>
 
-Ganduri de Final
-----------------
+Concluzii
+---------
 
-Sistemul de sablonare Symfony este simplu insa puternic. Multumita
-layout-urilor, slot-urilor, sablonarii si includerii actiunilor, este foarte
-usor sa va organizati sabloanele intr-o maniera logica si extensibila.
+Sistemul de șablonare Symfony este simplu însă puternic. Mulțumită
+layout-urilor, slot-urilor, șablonării și includerii acțiunilor, este foarte
+ușor să vă organizați șabloanele într-o manieră logică și extensibilă.
 
-Nu ati lucrat decat de aproape 20 de minute cu Symfony si deja puteti realiza
-lucruri uimitoare cu el. Aceasta este puterea Symfony. Invatarea elementelor de
-baza este usoara, si in cele ce urmeaza veti vedea ca aceasta simplicitate este
-ascunsa sub o arhitectura foarte flexibila.
+Nu ați lucrat decât de aproape 20 de minute cu Symfony și deja puteți realiza
+lucruri uimitoare cu el. Aceasta este puterea Symfony. Învățarea elementelor de
+bază este ușoară, și în cele ce urmează veți vedea că această simplitate este
+ascunsă sub o arhitectură foarte flexibilă.
 
-Dar sa nu ne grabim. Mai intai, trebuie sa aflati mai multe despre controlere,
-iar acesta este exact subiectul urmatoarei parti a acestui tutorial. Sunteti
-pregatit pentru inca 10 minute alaturi de Symfony?
+Dar să nu ne grăbim. Mai întâi, trebuie să aflați mai multe despre controlere,
+iar acesta este exact subiectul următoarei părți a acestui tutorial. Sunteți
+pregătit pentru încă 10 minute alături de Symfony?
 
 .. _Twig: http://www.twig-project.org/
