@@ -15,13 +15,13 @@ face controlerul pentru dumneavoastră.
     single: Rutare; Formate
     single: Vedere; Formate
 
-Formate
--------
+Utilizarea formatelor
+---------------------
 
 În zilele noastre, o aplicație web trebuie să fie capabilă să furnizeze mai mult
 decât pagini HTML. De la XML-ul pentru feed-urile RSS, până la JSON-ul pentru
 cererile Ajax, există o mulțime de formate de unde putem alege. Suportul acestor
-formate în Symfony este simplu. Editați ``routing.yml`` și adăugați parametrul
+formate în Symfony2 este simplu. Editați ``routing.yml`` și adăugați parametrul
 ``_format`` cu valoarea ``xml``:
 
 .. configuration-block::
@@ -58,8 +58,8 @@ Apoi, adăugați șablonul ``index.xml.php`` alături de ``index.php``:
         <name><?php echo $name ?></name>
     </hello>
 
-Asta a fost tot. Nu este evoie să modificați controlerul. Pentru formatele
-standard, Symfony va alege în mod automat cel mai bun header ``Content-Type``
+Asta a fost tot. Nu este nevoie să modificați controlerul. Pentru formatele
+standard, Symfony2 va alege în mod automat cel mai bun header ``Content-Type``
 pentru răspuns. Dacă doriți să folosiți diferite formate pentru o singură
 acțiune, folosiți în schimb substituentul ``:_format`` în cadrul tiparului:
 
@@ -143,7 +143,7 @@ Această metodă este deosebit de utilă atunci când controlerul trebuie să
 .. index::
     single: Excepții
 
-Managementul erorilor
+Gestionarea erorilor
 ---------------------
 
 Când lucrurile nu sunt găsite, trebuie să vă "jucați" cu protocolul HTTP și să
@@ -224,9 +224,9 @@ intermediul helper-ului ``request``:
 Sesiunea
 --------
 
-Chiar dacă protocolul HTTP este imparțial, Symfony furnizează obiectul sesiune
+Chiar dacă protocolul HTTP este imparțial, Symfony2 furnizează obiectul sesiune
 care reprezintă clientul (fie el o persoană reală ce utilizează un browser, fie
-un bot sau un serviciu web). Între două cereri, Symfony menține atributele
+un bot sau un serviciu web). Între două cereri, Symfony2 menține atributele
 sesiunii prin intermediul unui cookie, utilizând sistemul nativ de sesiuni al
 PHP.
 

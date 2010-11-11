@@ -12,18 +12,19 @@ largul dumneavoastră.
 .. index::
     pair: Sandbox; Descărcare
 
-Descărcare și instalare
------------------------
+Descărcarea și instalarea Symfony2
+----------------------------------
 
 În primul rând, verificați dacă aveți instalat PHP 5.3.2 (sau o versiune mai
 nouă) și dacă acesta este configurat corect pentru lucrul cu un server web,
 precum Apache.
 
-Sunteți gata? Să începem prin a descărca Symfony. Pentru a începe chiar mai
-repede, vom folosi "Symfony Sandbox". Acesta este un proiect Symfony unde toate
-librăriile necesare și câteva controlere simple sunt deja incluse; configurarea
-de bază este de asemenea realizată. Marele avantaj al sandbox-ului asupra altor
-tipuri de instalare este că puteți începe să experimentați cu Symfony imediat.
+Sunteți gata? Să începem prin a descărca Symfony2. Pentru a începe chiar mai
+repede, vom folosi "Symfony2 Sandbox". Acesta este un proiect Symfony2 unde
+toate librăriile necesare și câteva controlere simple sunt deja incluse;
+configurarea de bază este de asemenea realizată. Marele avantaj al sandbox-ului
+asupra altor tipuri de instalare este că puteți începe să experimentați cu
+Symfony2 imediat.
 
 Descărcați `sandbox`_-ul, și dezarhivați-l în rădăcina web. Acum ar trebui să
 aveți un folder ``sandbox/``::
@@ -50,34 +51,34 @@ Verificarea configurației
 -------------------------
 
 Pentru a evita unele probleme nedorite, verificați mai întâi dacă aveți o
-configurație capabilă să ruleze un proiect Symfony solicitând următorul URL:
+configurație capabilă să ruleze un proiect Symfony2 solicitând următorul URL:
 
     http://localhost/sandbox/web/check.php
 
 Citiți cu atenție rezultatul scriptului și remediati orice problemă pe care
 acesta o găsește.
 
-Acum, solicitați prima pagină web "adevărată" Symfony:
+Acum, solicitați prima pagină web "adevărată" Symfony2:
 
-    http://localhost/sandbox/web/index_dev.php/
+    http://localhost/sandbox/web/app_dev.php/
 
-Symfony ar trebui să vă felicite pentru efortul dumneavoastră de până acum!
+Symfony2 ar trebui să vă felicite pentru efortul dumneavoastră de până acum!
 
-Prima aplicație
----------------
+Crearea primei aplicații
+------------------------
 
 Sandbox-ul vine însoțit de o simplă ":term:`aplicație`" Hello World, aceasta
-fiind cea pe care o vom folosi pentru a afla mai multe despre Symfony. Accesați
-următorul URL pentru a fi întâmpinați de către Symfony (înlocuiți Fabien cu
+fiind cea pe care o vom folosi pentru a afla mai multe despre Symfony2. Accesați
+următorul URL pentru a fi întâmpinați de către Symfony2 (înlocuiți Fabien cu
 prenumele dumneavoastră):
 
-    http://localhost/sandbox/web/index_dev.php/hello/Fabien
+    http://localhost/sandbox/web/app_dev.php/hello/Fabien
 
 Ce se întâmplă aici? Să analizăm URL-ul:
 
 .. index:: Controler frontal
 
-* ``index_dev.php``: Acesta este un "controler frontal". El reprezintă punctul
+* ``app_dev.php``: Acesta este un "controler frontal". El reprezintă punctul
   unic de intrare al aplicației și răspunde tuturor cererilor utilizatorului;
 
 * ``/hello/Fabien``: Aceasta reprezintă calea "virtuală" către resursa pe care
@@ -93,7 +94,7 @@ leagă cererea utilizatorului (``/hello/Fabien``) de resursa asociată acesteia
 Configurare
 ~~~~~~~~~~~
 
-Cum realizează Symfony rutarea cererii către codul dumneavoastră? Pur și simplu
+Cum realizează Symfony2 rutarea cererii către codul dumneavoastră? Pur și simplu
 citind câteva fișiere de configurare.
 
 Toate fișiere de configurare Symfony2 pot fi scrise fie în PHP, XML sau `YAML`_
@@ -104,9 +105,8 @@ ușoară).
 
     Sandbox-ul utilizează în mod implicit YAML, dar dumneavoastră puteți comuta
     foarte ușor către XML sau PHP editând fișierul ``app/AppKernel.php``. Puteți
-    comuta acum urmărind instrucțiunile aflate în partea de jos a fișierului
-    ``app/AppKernel.php`` (tutorialele prezintă configurarea în toate formatele
-    suportate).
+    comuta acum, urmărind instrucțiunile aflate în partea de jos a acestui
+    fisier (tutorialele prezintă configurarea în toate formatele suportate).
 
 .. index::
     single: Rutare
@@ -115,7 +115,7 @@ ușoară).
 Rutare
 ~~~~~~
 
-Symfony rutează cererea citind fișierul de configurare al rutelor:
+Symfony2 rutează cererea citind fișierul de configurare al rutelor:
 
 .. configuration-block::
 
@@ -229,12 +229,16 @@ HTML) și este definit sub formă de clasă PHP:
         public function indexAction($name)
         {
             return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
+
+            // render a Twig template instead
+            // return $this->render('HelloBundle:Hello:index.twig', array('name' => $name));
         }
     }
 
+
 Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
 
-* *linia 3*: Symfony profită de avantajul noilor facilități PHP 5.3 și, ca
+* *linia 3*: Symfony2 profită de avantajul noilor facilități PHP 5.3 și, ca
   atare, toate controlerele sunt corect încadrate într-un namespace
   (namespace-ul este identic cu prima parte a valorii parametrului de rutare
   ``_controller``, in cazul nostru ``HelloBundle``).
@@ -245,7 +249,7 @@ Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
   scurtături utile (după cum vom vedea mai târziu în acest tutorial).
 
 * *linia 9*: Fiecare controler este compus din mai multe acțiuni. Așa cum este
-  specificat în configurare, pagina *hello* este manipulată de acțiunea
+  specificat în configurare, pagina de întâmpinare este manipulată de acțiunea
   ``index`` (a treia parte a parametrului de rutare ``_controller``). Această
   metodă primește, ca argumente, valorile substituenților (în cazul nostru
   ``$name``).
@@ -255,7 +259,7 @@ Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
   de-al doilea argument.
 
 Dar ce este un :term:`bundle`? Întregul cod pe care îl scrieți în cadrul unui
-proiect Symfony este organizat în bundle-uri. În vorbirea Symfony, un bundle
+proiect Symfony2 este organizat în bundle-uri. În vorbirea Symfony2, un bundle
 reprezintă un set structurat de fișiere (PHP, foi de stil, JavaScript-uri,
 imagini etc.) care poate fi ușor împărtășit cu alți dezvoltatori. În exemplul
 nostru nu avem decât un singur bundle, ``HelloBundle``.
@@ -270,34 +274,34 @@ numele controlerului, iar ``index.php`` numele fișierului șablonului. Șablonu
 
 .. code-block:: html+php
 
-    # src/Application/HelloBundle/Resources/views/Hello/index.php
+    <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
     <?php $view->extend('HelloBundle::layout.php') ?>
 
     Hello <?php echo $name ?>!
 
-Felicitări! Tocmai ați urmărit primele secvențe de cod în Symfony. Nu a fost
-chiar atât de greu, nu-i așa? Symfony face cu adevărat ușoară implementarea
+Felicitări! Tocmai ați urmărit primele secvențe de cod în Symfony2. Nu a fost
+chiar atât de greu, nu-i așa? Symfony2 face cu adevărat ușoară implementarea
 site-urilor web, mult mai bine și mai rapid.
 
 .. index::
     single: Mediu
     single: Configurare; Mediu
 
-Medii
------
+Lucrul cu medii
+---------------
 
-Acum că aveți o mai bună înțelegere despre modul în care funcționează Symfony,
-puteți arunca o privire în josul paginii *hello*; veți remarca o mică bară ce
-conține emblemele Symfony și PHP. Aceasta este denumită "Web Debug Toolbar" și
-este cel mai bun prieten al dezvoltatorului. Bine înțeles, o astfel de unealtă
-nu trebuie afișată când lansați aplicația pe serverele de producție. Din acest
-motiv veți găsi un alt controler frontal (``index.php``) în folderul ``web/``,
-optimizat pentru mediul de producție:
+Acum că aveți o mai bună înțelegere despre modul în care funcționează Symfony2,
+puteți arunca o privire în josul paginii; veți remarca o mică bară ce conține
+emblemele Symfony2 și PHP. Aceasta este denumită "Web Debug Toolbar" și este cel
+mai bun prieten al dezvoltatorului. Bine înțeles, o astfel de unealtă nu trebuie
+afișată când lansați aplicația pe serverele de producție. Din acest motiv veți
+găsi un alt controler frontal (``app.php``) în folderul ``web/``, optimizat
+pentru mediul de producție:
 
-    http://localhost/sandbox/web/index.php/hello/Fabien
+    http://localhost/sandbox/web/app.php/hello/Fabien
 
-Dacă aveți instalat ``mod_rewrite``, puteți să omiteți partea ``index.php`` a
-URL-ului:
+Dacă utilizați Apache cu ``mod_rewrite`` activat, puteți să omiteți partea
+``app.php`` a URL-ului:
 
     http://localhost/sandbox/web/hello/Fabien
 
@@ -307,11 +311,11 @@ aspectuos:
 
     http://localhost/hello/Fabien
 
-Pentru a face mediul de producție cât se poate de rapid, Symfony menține un
-cache în folderul ``app/cache/``. Când efectuați modificări, trebuie să
-eliminați manual fișierele din cache. Din acest motiv trebuie să folosiți
-întotdeauna controlerul frontal de dezvoltare (``index_dev.php``) atunci când
-lucrați la un proiect.
+Pentru a face mediul de producție cât se poate de rapid, Symfony2 menține un
+cache în folderul ``app/cache/``. Când efectuați modificări asupra codului sau
+configurației, trebuie să eliminați manual fișierele din cache. Din acest motiv
+trebuie să folosiți întotdeauna controlerul frontal de dezvoltare
+(``app_dev.php``) atunci când lucrați la un proiect.
 
 Concluzii
 ---------
@@ -319,7 +323,7 @@ Concluzii
 Cele 10 minute s-au terminat. De acum, ar trebui să fiți capabil să creați
 propriile dumneavoastră rute, controlere și șabloane. Ca un exercițiu, încercați
 să creați ceva mult mai util decât o aplicație de tipul *Hello World*! Dacă
-sunteți dornic să învățați mai multe despre Symfony, puteți citi următoarea
+sunteți dornic să învățați mai multe despre Symfony2, puteți citi următoarea
 parte a acestui tutorial chiar acum, unde vom afla mai multe despre sistemul
 de șablonare.
 
