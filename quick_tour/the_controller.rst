@@ -204,7 +204,7 @@ Obiectul Request
 Pe lângă valorile substituenților de rutare, controlerul are de asemenea acces
 la obiectul ``Request``::
 
-    $request = $this['request'];
+    $request = $this->get('request');
 
     $request->isXmlHttpRequest(); // este o cerere Ajax?
 
@@ -233,20 +233,22 @@ PHP.
 Stocarea și recuperarea informației din sesiune poate fi ușor realizată la
 nivelul oricărui controler::
 
+    $session = $this->get('request')->getSession();
+
     // stocheaza un atribut pentru reutilizare in timpul unei cereri ulterioare
-    $this['request']->getSession()->set('foo', 'bar');
+    $session->set('foo', 'bar');
 
     // in alt controler pentru o alta cerere
-    $foo = $this['request']->getSession()->get('foo');
+    $foo = $session->get('foo');
 
     // seteaza localizarea utilizatorului
-    $this['request']->getSession()->setLocale('fr');
+    $session->setLocale('fr');
 
 Puteți de asemenea să stocați mesaje de mici dimensiuni care vor fi disponibile
 doar pentru cererea imediat următoare::
 
     // stocheaza un mesaj pentru cererea imediat urmatoare (intr-un controler)
-    $this['session']->setFlash('notice', 'Felicitari, actiunea dvs. a reusit!');
+    $session->setFlash('notice', 'Felicitari, actiunea dvs. a reusit!');
 
     // afiseaza mesajul in urmatoarea cerere (intr-un sablon)
     <?php echo $view['session']->getFlash('notice') ?>
