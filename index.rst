@@ -33,8 +33,8 @@ Descoperiți Symfony2 cu ajutorul ghidurilor relevante:
 
 .. include:: guides/map.rst.inc
 
-Contribuirea
-------------
+Contribuie
+----------
 
 Contribuiți la dezvoltarea Symfony2:
 
