@@ -5,11 +5,11 @@ Symfony2 este publicat sub licența MIT.
 
 Conform `Wikipedia`_:
 
-  "Aceasta este o licență permisivă, în sensul că permite reutilizarea
-  software-ului proprietar cu condiția ca licența să fie distribuită împreună
-  cu software-ul. Licența este, de asemenea, compatibilă GPL în sensul că GPL
-  permite asocierea și redistribuirea cu software-ul care folosește licența
-  MIT."
+    "Aceasta este o licență permisivă, în sensul că permite reutilizarea
+    software-ului proprietar cu condiția ca licența să fie distribuită împreună
+    cu software-ul. Licența este, de asemenea, compatibilă GPL în sensul că GPL
+    permite asocierea și redistribuirea cu software-ul care folosește licența
+    MIT."
 
 Licența
 -------
