@@ -13,3 +13,8 @@
   * :doc:`Format </contributing/documentation/format>` |
   * :doc:`Traduceri </contributing/documentation/translations>` |
   * :doc:`Licență </contributing/documentation/license>`
+
+* **Comunitate**:
+
+  * :doc:`Întâlniri pe IRC </contributing/community/irc>` |
+  * :doc:`Alte resurse </contributing/community/other>`
