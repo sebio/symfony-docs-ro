@@ -140,6 +140,7 @@ O aplicație este constituită din bundle-uri așa cum este definit în metoda
     {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
 
             // enable third-party bundles
             new Symfony\Bundle\ZendBundle\ZendBundle(),
@@ -147,7 +148,6 @@ O aplicație este constituită din bundle-uri așa cum este definit în metoda
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             //new Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle(),
             //new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
-            //new Symfony\Bundle\TwigBundle\TwigBundle(),
 
             // register your bundles
             new Application\AppBundle\AppBundle(),
@@ -344,7 +344,7 @@ intermediul unui fișier de configurare specific:
 
     .. code-block:: php
 
-        // app/config/config.php
+        // app/config/config_dev.php
         $loader->import('config.php');
 
         $container->loadFromExtension('app', 'config', array(
