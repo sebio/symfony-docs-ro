@@ -235,7 +235,6 @@ HTML) și este definit sub formă de clasă PHP:
         }
     }
 
-
 Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
 
 * *linia 3*: Symfony2 profită de avantajul noilor facilități PHP 5.3 și, ca

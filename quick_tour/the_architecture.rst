@@ -28,17 +28,15 @@ Directorul web
 
 Directorul rădăcină web este gazda tuturor fișierelor publice și statice precum,
 imaginile, foile de stil, și fișierele JavaScript. Este de asemenea locul unde
-se găsesc controlerele frontale:
+se găsesc controlerele frontale::
 
-.. code-block:: html+php
-
-    <!-- web/app.php -->
-    <?php
-
+    // web/app.php
     require_once __DIR__.'/../app/AppKernel.php';
 
+    use Symfony\Component\HttpFoundation\Request;
+
     $kernel = new AppKernel('prod', false);
-    $kernel->handle()->send();
+    $kernel->handle(new Request())->send();
 
 Asemenea oricărui controler frontal, ``app.php`` utilizează o clasă Kernel,
 ``AppKernel``, pentru procesul de bootstrap al aplicației.
@@ -90,15 +88,16 @@ fișierelor depozitate în folderul ``src/``::
 
     $loader = new UniversalClassLoader();
     $loader->registerNamespaces(array(
-        'Symfony'                    => $vendorDir.'/symfony/src',
-        'Application'                => __DIR__,
-        'Bundle'                     => __DIR__,
-        'Doctrine\\Common'           => $vendorDir.'/doctrine-common/lib',
-        'Doctrine\\DBAL\\Migrations' => $vendorDir.'/doctrine-migrations/lib',
-        'Doctrine\\ODM\\MongoDB'     => $vendorDir.'/doctrine-mongodb/lib',
-        'Doctrine\\DBAL'             => $vendorDir.'/doctrine-dbal/lib',
-        'Doctrine'                   => $vendorDir.'/doctrine/lib',
-        'Zend'                       => $vendorDir.'/zend/library',
+        'Symfony'                        => $vendorDir.'/symfony/src',
+        'Application'                    => __DIR__,
+        'Bundle'                         => __DIR__,
+        'Doctrine\\Common\\DataFixtures' => $vendorDir.'/doctrine-data-fixtures/lib',
+        'Doctrine\\Common'               => $vendorDir.'/doctrine-common/lib',
+        'Doctrine\\DBAL\\Migrations'     => $vendorDir.'/doctrine-migrations/lib',
+        'Doctrine\\ODM\\MongoDB'         => $vendorDir.'/doctrine-mongodb/lib',
+        'Doctrine\\DBAL'                 => $vendorDir.'/doctrine-dbal/lib',
+        'Doctrine'                       => $vendorDir.'/doctrine/lib',
+        'Zend'                           => $vendorDir.'/zend/library',
     ));
     $loader->registerPrefixes(array(
         'Swift_' => $vendorDir.'/swiftmailer/lib/classes',
@@ -150,7 +149,7 @@ O aplicație este constituită din bundle-uri așa cum este definit în metoda
             //new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
 
             // register your bundles
-            new Application\AppBundle\AppBundle(),
+            new Application\HelloBundle\HelloBundle(),
         );
 
         if ($this->isDebug()) {
@@ -182,12 +181,9 @@ scrise în YAML, XML, sau PHP. Să aruncăm o privire la configurarea implicită
             templating:
                 escaping:       htmlspecialchars
                 #assets_version: SomeVersionScheme
-            #user:
-            #    default_locale: fr
-            #    session:
-            #        name:     SYMFONY
-            #        type:     Native
-            #        lifetime: 3600
+            session:
+                default_locale: en
+                lifetime: 3600
 
         ## Twig Configuration
         #twig.config:
@@ -216,11 +212,7 @@ scrise în YAML, XML, sau PHP. Să aruncăm o privire la configurarea implicită
             <app:router resource="%kernel.root_dir%/config/routing.xml" />
             <app:validation enabled="true" annotations="true" />
             <app:templating escaping="htmlspecialchars" />
-            <!--
-            <app:user default-locale="fr">
-                <app:session name="SYMFONY" type="Native" lifetime="3600" />
-            </app:user>
-            //-->
+            <app:session default-locale="en" lifetime="3600" />
         </app:config>
 
         <!-- Twig Configuration -->
@@ -258,14 +250,10 @@ scrise în YAML, XML, sau PHP. Să aruncăm o privire la configurarea implicită
                 'escaping'        => 'htmlspecialchars'
                 #'assets_version' => "SomeVersionScheme",
             ),
-            #'user' => array(
-            #    'default_locale' => "fr",
-            #    'session' => array(
-            #        'name' => "SYMFONY",
-            #        'type' => "Native",
-            #        'lifetime' => "3600",
-            #    )
-            #),
+            'session' => array(
+                'default_locale' => "en",
+                'lifetime' => "3600",
+            ),
         ));
 
         // Twig Configuration
@@ -319,7 +307,7 @@ intermediul unui fișier de configurare specific:
         zend.config:
             logger:
                 priority: debug
-                path:     %kernel.root_dir%/logs/%kernel.environment%.log
+                path:     %kernel.logs_dir%/%kernel.environment%.log
 
     .. code-block:: xml
 
