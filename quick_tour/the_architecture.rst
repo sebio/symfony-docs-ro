@@ -383,8 +383,8 @@ Utilizarea vendorilor
 
 Este foarte probabil ca aplicația dumneavoastră să depindă de terțe biblioteci.
 Acestea trebuie stocate în folderul ``src/vendor/``. Acesta deja conține
-bibliotecile Symfony2, biblioteca SwiftMailer, ORM-ul Doctrine, ORM-ul Propel,
-sistemul de șablonare Twig, și o selecție de clase ce aparțin Zend Framework.
+bibliotecile Symfony2, biblioteca SwiftMailer, ORM-ul Doctrine, sistemul de
+șablonare Twig, și o selecție de clase ce aparțin Zend Framework.
 
 .. index::
     single: Caching-ul configurației
