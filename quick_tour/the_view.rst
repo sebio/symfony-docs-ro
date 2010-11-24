@@ -258,6 +258,21 @@ de asemenea să adăugați următorul cod în layout-ul principal:
     <?php echo $view['javascripts'] ?>
     <?php echo $view['stylesheets'] ?>
 
+Escape-ul iesirii
+-----------------
+
+Când utilizați șabloane PHP, întrebuințați mecanismul de escape al variabilelor
+de fiecare dată când acestea sunt afișate către utilizator::
+
+    <?php echo $view->escape($var) ?>
+
+În mod implicit, metoda ``escape()`` presupune că variabilele sunt afișate
+într-un context HTML. Cel de-al doilea argument vă permite să schimbați
+contextul. De exemplu, pentru a afișa ceva în cadrul unui script JavaScript,
+utilizați contextul ``js``::
+
+    <?php echo $view->escape($var, 'js') ?>
+
 Concluzii
 ---------
 
