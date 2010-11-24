@@ -1,9 +1,9 @@
 ﻿Standarde de codare
 ===================
 
-Când contribuiți la codul Symfony2, trebuie să-i urmați standardele de
-codare. Pentru a face scurtă o poveste suficient de lungă, iată regula de aur:
-*Imitați codul Symfony2 existent*.
+Când contribuiți la codul Symfony2, trebuie să-i urmați standardele de codare.
+Pentru a scurta o poveste suficient de lungă, iată regula de aur: *Imitați codul
+Symfony2 existent*.
 
 Structură
 ---------
@@ -28,16 +28,16 @@ Structură
 
 * Lăsați o linie goală înainte de declarațiile `return`;
 
-* Nu adăugați spații goale la sfârșitul liniilor;
+* Nu lăsați spații goale la capătul liniilor;
 
 * Utilizați acolade pentru încadrarea corpului unei structuri de control,
   indiferent de numărul de declarații pe care acesta le conține;
 
-* Puneți acoladele singure pe linie la declararea claselor, metodelor și
+* Puneți acoladele pe o linie separată la declararea claselor, metodelor și
   funcțiilor;
 
 * Separați declarația condițională de acoladă cu un singur spațiu și nu o linie
-  goală;
+  noua;
 
 * Declarați explicit vizibilitatea pentru clase, metode și proprietăți
   (utilizarea `var` este interzisă);
@@ -45,7 +45,7 @@ Structură
 * Utilizați minuscule pentru constantele native PHP: `false`, `true` și `null`.
   Aceeași regulă se aplică și pentru `array()`;
 
-* Utilizați majuscule pentru constante și separați cuvintele cu underscore;
+* Utilizați majuscule pentru constante și separați cuvintele cu underscore-uri;
 
 * Definiți o singură clasă per fișier;
 
