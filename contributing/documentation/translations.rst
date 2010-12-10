@@ -14,7 +14,7 @@ Apoi, abonați-vă la `mailing-list-ul documentației`_ Symfony2 deoarece toate
 colaborarile se produc acolo.
 
 În cele din urmă, găsiți depozitul *master* pentru limba la care doriți să
-contribuiți. Lista depozitelor oficiale *master* este:
+contribuiți. Lista depozitelor *master* oficiale este:
 
 * *Engleză*: http://github.com/symfony/symfony-docs
 * *Rusă*:    http://github.com/avalanche123/symfony-docs-ru
@@ -28,8 +28,8 @@ contribuiți. Lista depozitelor oficiale *master* este:
 Alăturarea la Echipa de Traduceri
 ---------------------------------
 
-Dacă doriți să ajutați cu traducerea unor documente în limba dvs. sau să
-reparați unele bug-uri, puteți avea în vedere să vă alăturați nouă; este un
+Dacă doriți să ajutați cu traducerea unor documente în limba dumneavoastră sau
+să reparați unele bug-uri, puteți avea în vedere să vă alăturați nouă; este un
 proces foarte simplu:
 
 * Prezentați-vă pe `mailing-list-ul documentației`_ Symfony2;
@@ -37,7 +37,7 @@ proces foarte simplu:
 * Bifurcați depozitul *master* pentru limba dumneavoastră (faceți click pe
   butonul "Fork" de pe pagina Github);
 * Traduceți câteva documente;
-* Solicitați un pull request (faceți click pe "Pull Request" din pagina dvs. pe
+* Trimiteți un pull request (faceți click pe "Pull Request" din pagina dvs. pe
   Github);
 * Managerul echipei va accepta modificările dvs. și le va alipi la depozitul
   principal;
@@ -73,11 +73,11 @@ pe lista depozitelor *master* oficiale prin trimiterea unui email către Fabien
 Întreținerea
 ------------
 
-Procesul de traducere nu se termină atunci când totul este tradus. Documentația
-este o țintă mobilă (adăugarea de noi documente, remediarea bug-urilor,
-reorganizarea paragrafelor, ...). Echipa de traducere trebuie să urmărească în
-permanență depozitul în limba engleză și să aplice modificările și documentelor
-traduse, în cel mai scurt timp.
+Procesul de traducere nu se termină atunci când totul a fost tradus.
+Documentația este o țintă mobilă (adăugarea de noi documente, remediarea
+bug-urilor, reorganizarea paragrafelor, ...). Echipa de traducere trebuie să
+urmărească în permanență depozitul în limba engleză și să aplice, în cel mai
+scurt timp, modificările și documentelor traduse.
 
 .. caution::
 

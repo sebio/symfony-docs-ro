@@ -2,13 +2,13 @@
 =========================
 
 Înainte de a trimite un :doc:`patch <patches>` pentru a fi inclus, trebuie să
-rulați suita de teste Symfony2 pentru a verifica să nu fi stricat ceva.
+rulați suita de teste Symfony2 pentru a verifica să nu fie ceva stricat.
 
 PHPUnit
 -------
 
 Pentru a rula suita de teste Symfony2, `instalați`_ mai întâi PHPUnit 3.5.0 sau
-mai nou:
+o versiune mai nouă:
 
 .. code-block:: bash
 
@@ -25,7 +25,7 @@ externe, Symfony2 trebuie să fie capabil să le încarce automat. În mod impli
 ele sunt încărcate automat din folderul `vendor/` aflat în folderul principal al
 rădăcinii (vedeți `autoload.php.dist`).
 
-Suita de teste are nevoie de urmatoatele terțe librării:
+Suita de teste are nevoie de urmatoatele biblioteci externe:
 
 * Doctrine
 * Doctrine Migrations
@@ -33,7 +33,7 @@ Suita de teste are nevoie de urmatoatele terțe librării:
 * Twig
 * Zend Framework
 
-Pentru a le instala pe toate odata, rulați scriptul `install_vendors.sh`:
+Pentru a le instala pe toate odată, rulați script-ul `install_vendors.sh`:
 
 .. code-block:: bash
 
@@ -41,7 +41,7 @@ Pentru a le instala pe toate odata, rulați scriptul `install_vendors.sh`:
 
 .. note::
 
-    Rețineți că scriptul ia ceva timp pentru a termina.
+    Rețineți că script-ul durează ceva timp pentru a termina.
 
 După instalare, puteți actualiza oricând vendorii cu ajutorul script-ului
 `update_vendors.sh`:

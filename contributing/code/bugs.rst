@@ -5,13 +5,14 @@ De fiecare dată când găsiți un bug în Symfony2, vă rugăm să-l raportați
 ne ajută la îmbunătățirea Symfony2.
 
 .. caution::
+
     Dacă credeți că ați găsit o problemă de securitate, vă rugăm să folosiți în
     schimb :doc:`procedura <security>` specială.
 
 Înainte să trimiteți un bug:
 
  * Verificați de două ori `documentația`_ oficială pentru a vedea dacă nu cumva
-   utilizați necorespunzător framework-ul;
+   utilizați framework-ul într-un mod necorespunzător;
 
  * Solicitați asistență pe `mailing-list`_-ul utilizatorilor, pe `forum`_, sau
    pe `canalul IRC`_ #symfony, dacă nu sunteți sigur că problema dvs. reprezintă

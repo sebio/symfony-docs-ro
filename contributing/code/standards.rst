@@ -57,7 +57,7 @@ Structură
 Convenții pentru denumiri
 -------------------------
 
-* Utilizați formatul camelCase, nu underscore, pentru denumirea variabilelor,
+* Utilizați formatul camelCase, nu underscore, pentru denumirile variabilelor,
   funcțiilor și metodelor;
 
 * Utilizați underscore-uri pentru denumirea opțiunilor, argumentelor și

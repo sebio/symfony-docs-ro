@@ -10,7 +10,7 @@ Contribuirea
 ------------
 
 Înainte de a contribui, trebuie să vă familiarizați cu
-:doc:`limbajul de marcare <format>` utilizat de documentație.
+:doc:`limbajul de marcare <format>` utilizat pentru documentație.
 
 Documentația Symfony2 este găzduită într-un depozit Git:
 

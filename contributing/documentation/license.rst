@@ -1,7 +1,7 @@
 ﻿Licența documentației Symfony2
 ==============================
 
-Documentația Symfony2 este licențiată sub `licența`_ Creative Commons
+Documentația Symfony2 este licențiată sub `Licența`_ Creative Commons
 Attribution-Share Alike 3.0 Unported.
 
 **Sunteți liber:**
@@ -13,7 +13,7 @@ Attribution-Share Alike 3.0 Unported.
 **În următoarele condiții:**
 
 * *Atribuire* — Trebuie să atribuiți opera în maniera specificată de autor sau
-  licentiator (dar nu într-o formă care ar sugera faptul că aceștia v-ar susține
+  licențiator (dar nu într-o formă care ar sugera faptul că aceștia v-ar susține
   sau ar aproba folosirea de către dumneavoastră a operei);
 
 * *Distribuire în condiții identice* — Dacă modificați, transformați sau creați
@@ -48,5 +48,5 @@ Attribution-Share Alike 3.0 Unported.
 Acesta este un rezumat pe înțelesul tuturor al
 `Codului Juridic (licența completă)`_.
 
-.. _licența: http://creativecommons.org/licenses/by-sa/3.0/
+.. _Licența: http://creativecommons.org/licenses/by-sa/3.0/
 .. _Codului Juridic (licența completă): http://creativecommons.org/licenses/by-sa/3.0/legalcode

@@ -27,7 +27,7 @@ Sphinx
 
 Sphinx este un sistem de interpretare care adaugă câteva unelte pentru crearea
 documentației plecând de la documentele reStructuredText. Ca atare, adaugă noi
-directive și interpretări textului față de `marcajele`_ rest standard.
+directive și interpretări textului față de `marcajele`_ reST standard.
 
 Evidențierea sintaxei
 ~~~~~~~~~~~~~~~~~~~~~
