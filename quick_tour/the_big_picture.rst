@@ -21,7 +21,7 @@ precum Apache.
 
 Sunteți gata? Să începem prin a descărca Symfony2. Pentru a începe chiar mai
 repede, vom folosi "Symfony2 Sandbox". Acesta este un proiect Symfony2 unde
-toate librăriile necesare și câteva controlere simple sunt deja incluse;
+toate bibliotecile necesare și câteva controlere simple sunt deja incluse;
 configurarea de bază este de asemenea realizată. Marele avantaj al sandbox-ului
 asupra altor tipuri de instalare este că puteți începe să experimentați cu
 Symfony2 imediat.
@@ -55,7 +55,7 @@ configurație capabilă să ruleze un proiect Symfony2 solicitând următorul UR
 
     http://localhost/sandbox/web/check.php
 
-Citiți cu atenție rezultatul scriptului și remediati orice problemă pe care
+Citiți cu atenție rezultatul script-ului și remediati orice problemă pe care
 acesta o găsește.
 
 Acum, solicitați prima pagină web "adevărată" Symfony2:
