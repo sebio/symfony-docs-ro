@@ -44,7 +44,7 @@ formate în Symfony2 este simplu. Editați ``routing.yml`` și adăugați parame
     .. code-block:: php
 
         // src/Application/HelloBundle/Resources/config/routing.php
-        $collection->addRoute('hello', new Route('/hello/:name', array(
+        $collection->add('hello', new Route('/hello/:name', array(
             '_controller' => 'HelloBundle:Hello:index',
             '_format'     => 'xml',
         )));
@@ -85,7 +85,7 @@ acțiune, folosiți în schimb substituentul ``:_format`` în cadrul tiparului:
     .. code-block:: php
 
         // src/Application/HelloBundle/Resources/config/routing.php
-        $collection->addRoute('hello', new Route('/hello/:name.:_format', array(
+        $collection->add('hello', new Route('/hello/:name.:_format', array(
             '_controller' => 'HelloBundle:Hello:index',
             '_format'     => 'html',
         ), array(
