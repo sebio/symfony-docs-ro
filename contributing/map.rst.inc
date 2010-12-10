@@ -3,8 +3,9 @@
   * :doc:`Bug-uri </contributing/code/bugs>` |
   * :doc:`Patch-uri </contributing/code/patches>` |
   * :doc:`Securitate </contributing/code/security>` |
-  * :doc:`Standarde de codare </contributing/code/standards>` |
   * :doc:`Teste </contributing/code/tests>` |
+  * :doc:`Standarde de codare </contributing/code/standards>` |
+  * :doc:`Convenții </contributing/code/conventions>` |
   * :doc:`Licență </contributing/code/license>`
 
 * **Documentație**:
