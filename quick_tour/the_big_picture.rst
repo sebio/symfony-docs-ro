@@ -16,17 +16,17 @@ Descărcarea și instalarea Symfony2
 ----------------------------------
 
 În primul rând, verificați dacă aveți instalat PHP 5.3.2 (sau o versiune mai
-nouă) și dacă acesta este configurat corect pentru lucrul cu un server web,
+recentă) și dacă acesta este configurat corect pentru lucrul cu un server web,
 precum Apache.
 
 Sunteți gata? Să începem prin a descărca Symfony2. Pentru a începe chiar mai
 repede, vom folosi "Symfony2 Sandbox". Acesta este un proiect Symfony2 unde
 toate bibliotecile necesare și câteva controlere simple sunt deja incluse;
 configurarea de bază este de asemenea realizată. Marele avantaj al sandbox-ului
-asupra altor tipuri de instalare este că puteți începe să experimentați cu
+în comparație cu alte tipuri de instalare este că puteți începe să experimentați
 Symfony2 imediat.
 
-Descărcați `sandbox`_-ul, și dezarhivați-l în rădăcina web. Acum ar trebui să
+Descărcați `sandbox`_-ul și dezarhivați-l în rădăcina web. Acum ar trebui să
 aveți un folder ``sandbox/``::
 
     www/ <- radacina web
@@ -202,7 +202,7 @@ conținut:
 
 Iată! După cum puteți observa, tiparul resursei "``/hello/:name``" (un șir
 de caractere care începe cu două puncte, asemena lui ``:name``, reprezintă un
-substituent) este atribuit unui controler, referit de valoarea parametrului
+substituent) este atribuit unui controler, menționat de valoarea parametrului
 ``_controller``.
 
 .. index::
@@ -213,7 +213,7 @@ Controlere
 ~~~~~~~~~~
 
 Controlerul este responsabil să întoarcă o reprezentare a resursei (de obicei
-HTML) și este definit sub formă de clasă PHP:
+HTML) și este definit sub forma unei clase PHP:
 
 .. code-block:: php
     :linenos:
@@ -240,7 +240,7 @@ Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
 * *linia 3*: Symfony2 profită de avantajul noilor facilități PHP 5.3 și, ca
   atare, toate controlerele sunt corect încadrate într-un namespace
   (namespace-ul este identic cu prima parte a valorii parametrului de rutare
-  ``_controller``, in cazul nostru ``HelloBundle``).
+  ``_controller``, în cazul nostru ``HelloBundle``).
 
 * *linia 7*: Numele controlerului este reprezentat de concatenarea celei de-a
   doua părți a valorii parametrului de rutare ``_controller`` (``Hello``) cu
@@ -254,13 +254,13 @@ Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
   ``$name``).
 
 * *linia 11*: Metoda ``render()`` încarcă și redă un șablon
-  (``HelloBundle:Hello:index.twig``) cu variabilele trecute prin intermediul
+  (``HelloBundle:Hello:index.twig``) cu variabilele trimise prin intermediul
   celui de-al doilea argument.
 
 Dar ce este un :term:`bundle`? Întregul cod pe care îl scrieți în cadrul unui
 proiect Symfony2 este organizat în bundle-uri. În vorbirea Symfony2, un bundle
 reprezintă un set structurat de fișiere (PHP, foi de stil, JavaScript-uri,
-imagini etc.) care poate fi ușor împărtășit cu alți dezvoltatori. În exemplul
+imagini etc.) care poate fi ușor împărtășit cu alți programatori. În exemplul
 nostru nu avem decât un singur bundle, ``HelloBundle``.
 
 Șabloane
@@ -294,7 +294,7 @@ Lucrul cu medii
 Acum că aveți o mai bună înțelegere despre modul în care funcționează Symfony2,
 puteți arunca o privire în josul paginii; veți remarca o mică bară ce conține
 emblemele Symfony2 și PHP. Aceasta este denumită "Web Debug Toolbar" și este cel
-mai bun prieten al dezvoltatorului. Bine înțeles, o astfel de unealtă nu trebuie
+mai bun prieten al programatorului. Bine înțeles, o astfel de unealtă nu trebuie
 afișată când lansați aplicația pe serverele de producție. Din acest motiv veți
 găsi un alt controler frontal (``app.php``) în folderul ``web/``, optimizat
 pentru mediul de producție:
@@ -306,15 +306,15 @@ Dacă utilizați Apache cu ``mod_rewrite`` activat, puteți să omiteți partea
 
     http://localhost/sandbox/web/hello/Fabien
 
-Nu în cele din urmă, pe serverele de producție, trebuie să setați rădăcina web
-pe folderul ``web/``, pentru a securiza aplicația și pentru a avea un URL mai
-aspectuos:
+Nu în cele din urmă, pe serverele de producție, trebuie să stabiliți rădăcina
+web pe folderul ``web/``, pentru a securiza aplicația și pentru a avea un URL
+mai aspectuos:
 
     http://localhost/hello/Fabien
 
 Pentru a face mediul de producție cât se poate de rapid, Symfony2 menține un
 cache în folderul ``app/cache/``. Când efectuați modificări asupra codului sau
-configurației, trebuie să eliminați manual fișierele din cache. Din acest motiv
+configurării, trebuie să eliminați manual fișierele din cache. Din acest motiv
 trebuie să folosiți întotdeauna controlerul frontal de dezvoltare
 (``app_dev.php``) atunci când lucrați la un proiect.
 

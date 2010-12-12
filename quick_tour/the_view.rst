@@ -113,7 +113,7 @@ dumneavoastră și definește "blocuri" pe care șabloanele copil le pot suprasc
     {% endblock %}
 
 Notația ``HelloBundle::layout.twig`` vă sună familiar, nu-i așa? Este aceeași
-notație ca aceea de referențiere a unui șablon. Partea ``::`` nu înseamnă decât
+notație ca aceea de referire a unui șablon. Partea ``::`` nu înseamnă decât
 că elementul controler este gol, prin urmare fișierul corespunzător este stocat
 direct în folderul ``views/``.
 
@@ -130,11 +130,11 @@ Acum, să aruncăm o privire asupra fișierului ``layout.twig``:
     {% endblock %}
 
 Etichetele ``{% block %}`` definesc două blocuri (``body`` și ``content``) pe
-care șabloanele copil le pot umple. Tot ce realizează eticheta bloc este să îi
+care șabloanele copil le pot umple. Tot ce realizează eticheta block este să îi
 comunice motorului de șablonare că un șablon copil poate să suprascrie aceste
 porțiuni ale șablonului. Șablonul ``index.twig`` suprascrie blocul ``content``.
-Celălalt bloc este definit în aspectul de bază căci aspectul este însuși decorat
-de un altul.
+Celălalt bloc este definit în aspectul de bază deoarece aspectul este însuși
+decorat de un altul.
 
 Twig suportă niveluri multiple de decorare: un aspect poate fi însuși decorat
 de un altul. Când denumirea bundle-ului lipsește din numele șablonului
@@ -162,10 +162,10 @@ Una dintre cele mai bune caracteristici ale Twig este extensibilitatea prin
 intermediul noilor etichete și filtre. Symfony2 vine însoțit de multe etichete
 și filtre specializate, care ușurează munca designer-ului web.
 
-Includerea altor șabloane
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Includerea șabloanelor
+~~~~~~~~~~~~~~~~~~~~~~
 
-Cea mai bună cale de a împărtăși un fragment de cod de șablon este aceea de a
+Cea mai bună cale de a partaja un fragment de cod de șablon este aceea de a
 defini un șablon care poate fi inclus în alte șabloane.
 
 Creați un șablon ``hello.twig``:
@@ -187,15 +187,15 @@ Creați un șablon ``hello.twig``:
         {% include "HelloBundle:Hello:hello.twig" %}
     {% endblock %}
 
-Integrarea altor controlere
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Integrarea controlerelor
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ce trebuie făcut dacă dorim să integrăm rezultatul unui alt controler într-un
 șablon? Acest lucru este extrem de util când se lucrează cu Ajax, sau când
 șablonul integrat necesită anumite variabile indisponibile în șablonul
 principal.
 
-Dacă veți crea acțiunea ``fancy``, și doriți să o includeți în șablonul
+Dacă veți crea acțiunea ``fancy``, și doriți să o integrați în șablonul
 ``index``, folosiți eticheta ``render``:
 
 .. code-block:: jinja
@@ -227,7 +227,7 @@ Crearea legăturilor între pagini
 
 Când vorbim de aplicații web, crearea legăturilor între pagini este o
 necesitate. În loc să folosim hardcoding-ul URL-urilor în șabloane, eticheta
-``path`` știe cum să genereze URL-uri bazate pe configurația rutării. În acest
+``path`` știe cum să genereze URL-uri bazate pe configurarea rutelor. În acest
 mod, toate URL-urile pot fi actualizate ușor modificând configurarea:
 
 .. code-block:: jinja

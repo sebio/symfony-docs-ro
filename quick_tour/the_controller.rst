@@ -58,7 +58,7 @@ Apoi, adăugați șablonul ``index.xml.php`` alături de ``index.php``:
         <name><?php echo $name ?></name>
     </hello>
 
-Asta a fost tot. Nu este nevoie să modificați controlerul. Pentru formatele
+Aceasta a fost tot. Nu este nevoie să modificați controlerul. Pentru formatele
 standard, Symfony2 va alege în mod automat cel mai bun header ``Content-Type``
 pentru răspuns. Dacă doriți să folosiți diferite formate pentru o singură
 acțiune, folosiți în schimb substituentul ``:_format`` în cadrul tiparului:
@@ -146,7 +146,7 @@ Această metodă este deosebit de utilă atunci când controlerul trebuie să
 Gestionarea erorilor
 ---------------------
 
-Când lucrurile nu sunt găsite, trebuie să vă "jucați" cu protocolul HTTP și să
+Când paginile nu sunt găsite, trebuie să vă "jucați" cu protocolul HTTP și să
 întoarceți un răspuns 404. Acest lucru se poate realiza foarte ușor prin
 aruncarea unei excepții::
 
@@ -209,8 +209,8 @@ la obiectul ``Request``::
 
     $request->request->get('page'); // obtine un parametru $_POST
 
-Într-un șablon, puteți de asemenea să accesați obiectul ``Request`` prin
-intermediul helper-ului ``request``:
+Într-un șablon, puteți să accesați obiectul ``Request`` prin intermediul
+helper-ului ``request``:
 
 .. code-block:: html+php
 
@@ -220,8 +220,8 @@ Sesiunea
 --------
 
 Chiar dacă protocolul HTTP este imparțial, Symfony2 furnizează obiectul sesiune
-care reprezintă clientul (fie el o persoană reală ce utilizează un browser, fie
-un bot sau un serviciu web). Între două cereri, Symfony2 menține atributele
+pentru a reprezenta clientul (fie el o persoană reală ce utilizează un browser,
+fie un bot sau un serviciu web). Între două cereri, Symfony2 menține atributele
 sesiunii prin intermediul unui cookie, utilizând sistemul nativ de sesiuni al
 PHP.
 
@@ -251,8 +251,8 @@ doar pentru cererea imediat următoare::
 Concluzii
 ---------
 
-Asta a fost tot, și nici nu sunt sigur dacă am consumat cele 10 minute alocate.
-În partea anterioară, am văzut cum să extindem sistemul de șablonare cu ajutorul
-helper-ilor. Numai că, în Symfony2, orice poate fi extins sau înlocuit prin
-intermediul bundle-urilor. Acesta este și subiectul următoarei părți a acestui
-tutorial.
+Aceasta a fost tot, și nici nu sunt sigur dacă am consumat cele 10 minute
+alocate. În partea anterioară, am văzut cum să extindem sistemul de șablonare cu
+ajutorul helper-ilor. Numai că, în Symfony2, orice poate fi extins sau înlocuit
+prin intermediul bundle-urilor. Acesta este și subiectul următoarei părți a
+acestui tutorial.

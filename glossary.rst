@@ -11,7 +11,7 @@ Glosar
         controlerelor frontale.
 
     Aplicație
-        O *Aplicație* reprezintă un folder ce conține *configurația* pentru
+        O *Aplicație* reprezintă un folder ce conține *configurarea* pentru
         un set dat de Bundle-uri.
 
     Bundle
@@ -19,3 +19,9 @@ Glosar
         JavaScript-uri, imagini etc.) care *implementează* o singură facilitate
         (un blog, un forum etc.) și care poate fi usor împărtășit cu alți
         dezvoltatori.
+
+    Controler frontal
+        Un *controler frontal* este un script PHP aflat în folderul rădăcină web
+        al proiectului. În mod normal, *toate* cererile sunt manipulate prin
+        executarea aceluiași controler frontal, al cărui rol constă în
+        efectuarea procesului de bootstrap al aplicației Symfony.
