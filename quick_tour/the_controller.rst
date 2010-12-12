@@ -162,13 +162,8 @@ aruncarea unei excepții::
         return $this->render(...);
     }
 
-``NotFoundHttpException`` va întoarce un răspuns HTTP 404 înapoi la browser. În
-mod similar, ``ForbiddenHttpException`` întoarce eroarea 403 și
-``UnauthorizedHttpException`` eroarea 401. Pentru orice alt cod de eroare HTTP,
-puteți să utilizați baza ``HttpException`` și să specificați eroarea HTTP prin
-intermediul argumentelor excepției::
-
-    throw new HttpException('Unauthorized access.', 401);
+Excepția ``NotFoundHttpException`` va întoarce un răspuns HTTP 404 către
+browser.
 
 .. index::
     single: Controler; Redirecționare
