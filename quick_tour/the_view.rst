@@ -1,158 +1,194 @@
 ﻿Vederea
 =======
 
-După ce ați citit prima parte a acestui tutorial, ați decis că Symfony2 merită
-încă 10 minute. Foarte bine pentru dumneavoastră. În această a doua parte veți
-afla mai multe despre sistemul de șablonare Symfony2. După cum ați observat mai
-devreme, Symfony utilizează PHP ca motor de șablonare implicit, adăugând niște
-facilități suplimentare pentru al face mai puternic.
+După ce ați citit prima parte a acestui tutorial, ați decis că Symfony2 a
+meritat încă 10 minute. Foarte bine pentru dumneavoastră. În această a doua
+parte veți afla mai multe despre motorul de șablonare Symfony2, `Twig`_. Twig
+este un motor de șablonare flexibil, rapid și sigur, pentru PHP. El face
+șabloanele mult mai concise și ușor de citit; de asemenea le face mult mai
+prietenoase pentru designerii web.
 
-În loc de PHP, puteți de asemenea să utilizați `Twig`_ (el face ca șabloanele
-dumneavoastră să fie mai concise și mai prietenoase pentru designerii web).
-Dacă preferați să utilizați `Twig`, citiți capitolul alternativ
-:doc:`Vederea cu Twig <the_view_with_twig>`.
+.. note::
+
+    În loc de Twig, puteți de asemenea să utilizați
+    :doc:`PHP </guides/templating/PHP>` pentru șabloanele dumneavoastră. Ambele
+    motoare de șablonare sunt suportate de Symfony2 și beneficiază de același
+    nivel de suport.
 
 .. index::
-    single: Șablonare; Layout
-    single: Layout
+    single: Twig
+    single: Vedere; Twig
+
+Twig, o trecere în revistă
+--------------------------
+
+.. tip::
+
+    Dacă doriți să învățați Twig, vă recomandăm călduros să citiți
+    `documentația`_ oficială. Această secțiune este doar o scurtă trecere în
+    revistă a conceptelor de bază.
+
+Un șablon Twig este un simplu fișier text care poate genera orice format bazat
+pe text (HTML, XML, CSV, Latex, ...). Twig definește două tipuri de
+delimitatori:
+
+* ``{{ ... }}``: Afișează o variabilă sau rezultatul unei expesii în cadrul unui
+  șablon;
+
+* ``{% ... %}``: O etichetă care aparține de segmentul logic al unui șablon;
+  este utilizată pentru a executa instrucțiuni precum buclele for.
+
+Mai jos este un șablon minim care ilustrează câteva concepte de bază:
+
+.. code-block:: jinja
+
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>My Webpage</title>
+        </head>
+        <body>
+            <h1>{{ page_title }}</h1>
+
+            <ul id="navigation">
+                {% for item in navigation %}
+                    <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+                {% endfor %}
+            </ul>
+        </body>
+    </html>
+
+Variabilele trimise șabloanelor pot fi șiruri de caractere, array-uri sau chiar
+obiecte. Twig abstractizează diferența dintre ele și vă permite să accesați
+"atributele" unei variabile cu ajutorul notației punct (``.``):
+
+.. code-block:: jinja
+
+    {# array('name' => 'Fabien') #}
+    {{ name }}
+
+    {# array('user' => array('name' => 'Fabien')) #}
+    {{ user.name }}
+
+    {# force array lookup #}
+    {{ user['name'] }}
+
+    {# array('user' => new User('Fabien')) #}
+    {{ user.name }}
+    {{ user.getName }}
+
+    {# force method name lookup #}
+    {{ user.name() }}
+    {{ user.getName() }}
+
+    {# pass arguments to a method #}
+    {{ user.date('Y-m-d') }}
+
+.. note::
+
+    Este important de știut că acoladele nu sunt parte din variabilă ci din
+    declarația de afișare. Dacă accesați variabilele în interiorul etichetelor
+    nu puneți acolade în jurul lor.
 
 Decorarea șabloanelor
 ---------------------
 
 De cele mai multe ori, șabloanele din cadrul unui proiect împărtășesc elemente
 comune, precum bine cunoscutul antet și subsol. În Symfony2, ne place să abordăm
-problema diferit: un șablon poate fi decorat de un altul.
+problema diferit: un șablon poate fi decorat de un altul. Aceasta funcționează
+în mod similar claselor PHP: moștenirea șabloanelor vă permite să construiți
+un șablon cu "aspectul" de bază ce conține toate elementele comune ale site-ului
+dumneavoastră și definește "blocuri" pe care șabloanele copil le pot suprascrie.
 
-Șablonul ``index.php`` este decorat de către ``layout.php``, mulțumită apelării
-metodei ``extend()``:
+Șablonul ``index.twig`` moștenește de la ``layout.twig``, mulțumită etichetei
+``extends``:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout.php') ?>
+    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
+    {% extends "HelloBundle::layout.twig" %}
 
-    Hello <?php echo $name ?>!
+    {% block content %}
+        Hello {{ name }}!
+    {% endblock %}
 
-Notația ``HelloBundle::layout.php`` vă sună familiar, nu-i așa? Este aceeași
+Notația ``HelloBundle::layout.twig`` vă sună familiar, nu-i așa? Este aceeași
 notație ca aceea de referențiere a unui șablon. Partea ``::`` nu înseamnă decât
 că elementul controler este gol, prin urmare fișierul corespunzător este stocat
 direct în folderul ``views/``.
 
-Acum, să aruncăm o privire asupra fișierului ``layout.php``:
+Acum, să aruncăm o privire asupra fișierului ``layout.twig``:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <!-- src/Application/HelloBundle/Resources/views/layout.php -->
-    <?php $view->extend('::layout.php') ?>
+    {% extends "::layout.twig" %}
 
-    <h1>Hello Application</h1>
+    {% block body %}
+        <h1>Hello Application</h1>
 
-    <?php $view['slots']->output('_content') ?>
+        {% block content %}{% endblock %}
+    {% endblock %}
 
-Layout-ul însuși este decorat de un alt layout (``::layout.php``). Symfony2
-suportă niveluri multiple de decorare: un layout poate să fie decorat de un
-altul. Când denumirea bundle-ului lipsește din numele șablonului, vederile sunt
-căutate în folderul ``app/views/``. Acest folder stochează vederile globale
-pentru întregul proiect:
+Etichetele ``{% block %}`` definesc două blocuri (``body`` și ``content``) pe
+care șabloanele copil le pot umple. Tot ce realizează eticheta bloc este să îi
+comunice motorului de șablonare că un șablon copil poate să suprascrie aceste
+porțiuni ale șablonului. Șablonul ``index.twig`` suprascrie blocul ``content``.
+Celălalt bloc este definit în aspectul de bază căci aspectul este însuși decorat
+de un altul.
 
-.. code-block:: html+php
+Twig suportă niveluri multiple de decorare: un aspect poate fi însuși decorat
+de un altul. Când denumirea bundle-ului lipsește din numele șablonului
+(``::layout.twig``), vederile sunt căutate în folderul ``app/views/``. Acest
+folder stochează vederile globale pentru întregul proiect:
 
-    <!-- app/views/layout.php -->
+.. code-block:: jinja
+
+    {# app/views/layout.twig #}
     <!DOCTYPE html>
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
+            <title>{% block title %}Hello Application{% endblock %}</title>
         </head>
         <body>
-            <?php $view['slots']->output('_content') ?>
+            {% block body '' %}
         </body>
     </html>
 
-Pentru ambele layout-uri, expresia ``$view['slots']->output('_content')`` este
-înlocuită de conținutul șablonului copil, respectiv ``index.php`` și
-``layout.php`` (mai multe despre sloturi în secțiunea următoare).
+Etichete și filtre specifice
+----------------------------
 
-După cum puteți observa, Symfony2 oferă metode prin intermediul misteriosului
-obiect ``$view``. Într-un șablon, variabila ``$view`` este mereu disponibilă și
-referențiază un obiect special care furnizează un set de metode ce alcătuiesc
-motorul de șablonare.
-
-.. index::
-    single: Șablonare; Slot
-    single: Slot
-
-Lucrul cu sloturi
------------------
-
-Un slot este un fragment de cod, definit într-un șablon și refolosibil în orice
-layout ce decorează șablonul. În șablonul ``index.php``, definiți slotul
-``title``:
-
-.. code-block:: html+php
-
-    <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout.php') ?>
-
-    <?php $view['slots']->set('title', 'Hello World Application') ?>
-
-    Hello <?php echo $name ?>!
-
-Layout-ul de bază conține deja codul necesar afișării titlului în antet:
-
-.. code-block:: html+php
-
-    <!-- app/views/layout.php -->
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><?php $view['slots']->output('title', 'Hello Application') ?></title>
-    </head>
-
-Metoda ``output()`` inserează conținutul unui slot și, opțional, reține o
-valoare implicită pentru cazul când slotul nu este definit. ``_content`` nu este
-decât un slot special care conține redarea șablonului copil.
-
-Pentru sloturi de dimensiuni mari, există de asemenea o sintaxă extinsă:
-
-.. code-block:: html+php
-
-    <?php $view['slots']->start('title') ?>
-        O cantitate mare de HTML
-    <?php $view['slots']->stop() ?>
-
-.. index::
-    single: Șablonare; Includere
+Una dintre cele mai bune caracteristici ale Twig este extensibilitatea prin
+intermediul noilor etichete și filtre. Symfony2 vine însoțit de multe etichete
+și filtre specializate, care ușurează munca designer-ului web.
 
 Includerea altor șabloane
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Cea mai bună cale de a împărtăși un fragment de cod de șablon este aceea de a
 defini un șablon care poate fi inclus în alte șabloane.
 
-Creați șablonul ``hello.php``:
+Creați un șablon ``hello.twig``:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <!-- src/Application/HelloBundle/Resources/views/Hello/hello.php -->
-    Hello <?php echo $name ?>!
+    {# src/Application/HelloBundle/Resources/views/Hello/hello.twig #}
+    Hello {{ name }}
 
-Și modificați șablonul ``index.php`` pentru al include:
+Și modificați șablonul ``index.twig`` pentru al include:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout.php') ?>
+    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
+    {% extends "HelloBundle::layout.twig" %}
 
-    <?php echo $view->render('HelloBundle:Hello:hello.php', array('name' => $name)) ?>
-
-Metoda ``render()`` evaluează și întoarce conținutul unui alt șablon (este exact
-aceeași metodă ca cea utilizată la nivel de controler).
-
-.. index::
-    single: Șablonare; Integrare pagini
+    {# override the body block from index.twig #}
+    {% block body %}
+        {% include "HelloBundle:Hello:hello.twig" %}
+    {% endblock %}
 
 Integrarea altor controlere
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ce trebuie făcut dacă dorim să integrăm rezultatul unui alt controler într-un
 șablon? Acest lucru este extrem de util când se lucrează cu Ajax, sau când
@@ -160,15 +196,16 @@ Ce trebuie făcut dacă dorim să integrăm rezultatul unui alt controler într-
 principal.
 
 Dacă veți crea acțiunea ``fancy``, și doriți să o includeți în șablonul
-``index.php``, nu trebuie decât să utilizați următorul cod:
+``index``, folosiți eticheta ``render``:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php echo $view['actions']->render('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green')) ?>
+    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
+    {% render "HelloBundle:Hello:fancy" with ['name': name, 'color': 'green'] %}
 
 Aici, șirul de caractere ``HelloBundle:Hello:fancy`` se referă la acțiunea
-``fancy`` a controlerului ``Hello``::
+``fancy`` a controlerului ``Hello``, iar argumentul conține valorile
+variabilelor pentru calea cererii simulate::
 
     // src/Application/HelloBundle/Controller/HelloController.php
 
@@ -176,109 +213,73 @@ Aici, șirul de caractere ``HelloBundle:Hello:fancy`` se referă la acțiunea
     {
         public function fancyAction($name, $color)
         {
-            // creati un obiect bazat pe variabila $color
+            // create some object, based on the $color variable
             $object = ...;
 
-            return $this->render('HelloBundle:Hello:fancy.php', array('name' => $name, 'object' => $object));
+            return $this->render('HelloBundle:Hello:fancy.twig', array('name' => $name, 'object' => $object));
         }
 
         // ...
     }
 
-Dar unde este definit elementul de array ``$view['actions']``? Asemena lui
-``$view['slots']``, este denumit ajutor de șablon sau helper, iar următoarea
-secțiune vă vorbește mai multe despre aceștia.
-
-.. index::
-    single: Șablonare; Ajutori
-
-Utilizarea ajutorilor de șablon
--------------------------------
-
-Sistemul de șablonare Symfony2 poate fi ușor extins cu ajutorul helper-ilor.
-Ajutorii sunt obiecte PHP care furnizează facilități utile în contextul unui
-șablon. ``actions`` și ``slots`` sunt doi dintre ajutorii înglobați în Symfony2.
-
 Crearea legăturilor între pagini
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Când vorbim de aplicații web, crearea legăturilor între pagini este o
-necesitate. În loc să folosim hardcoding-ul URL-urilor în șabloane, helper-ul
-``router`` știe cum să genereze URL-uri bazate pe configurația rutării. În
-acest mod, toate URL-urile dumneavoastră pot fi actualizate ușor modificând
-configurarea:
+necesitate. În loc să folosim hardcoding-ul URL-urilor în șabloane, eticheta
+``path`` știe cum să genereze URL-uri bazate pe configurația rutării. În acest
+mod, toate URL-urile pot fi actualizate ușor modificând configurarea:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <a href="<?php echo $view['router']->generate('hello', array('name' => 'Thomas')) ?>">
-        Greet Thomas!
-    </a>
+    <a href="{% path 'hello' with ['name': 'Thomas'] %}">Greet Thomas!</a>
 
-Metoda ``generate()`` preia ca argumente, numele rutei și un array de
-parametrii. Numele rutei este cheia principală cu ajutorul căreia se identifică
-ruta, iar parametrii conțin valorile substituenților definiți în tiparul rutei:
+Eticheta ``path`` preia ca argumente numele rutei și un array de parametrii.
+Numele rutei este cheia principală cu ajutorul căreia se identifică ruta, iar
+parametrii conțin valorile substituenților definiți în tiparul rutei:
 
 .. code-block:: yaml
 
     # src/Application/HelloBundle/Resources/config/routing.yml
-    hello: # numele rutei
+    hello: # The route name
         pattern:  /hello/:name
         defaults: { _controller: HelloBundle:Hello:index }
+
+.. tip::
+
+    Puteți de asemenea să generați URL-uri absolute cu ajutorul etichetei
+    ``url``: ``{% url 'hello' with ['name': 'Thomas'] %}``.
 
 Utilizarea activelor: imagini, JavaScript-uri și foi de stil
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ce ar fi Internet-ul fără imagini, JavaScript-uri și foi de stil? Symfony2
-furnizează trei helperi pentru a le face față cu ușurință: ``assets``,
+furnizează trei ajutori pentru a le face față cu ușurință: ``assets``,
 ``javascripts`` și ``stylesheets``:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <link href="<?php echo $view['assets']->getUrl('css/blog.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="{% asset 'css/blog.css' %}" rel="stylesheet" type="text/css" />
 
-    <img src="<?php echo $view['assets']->getUrl('images/logo.png') ?>" />
+    <img src="{% asset 'images/logo.png' %}" />
 
-Scopul principal al helper-ului ``assets`` este să facă aplicația mai portabila.
-Mulțumită acestui helper, puteți să mutați folderul rădăcină al aplicației
+Scopul principal al etichetei ``asset`` este să facă aplicația mai portabilă.
+Mulțumită acestei etichete, puteți să mutați folderul rădăcină al aplicației
 oriunde în interiorul rădăcinii web fără a schimba ceva în codul șabloanelor.
 
-În mod similar, puteți să gestionați foile de stil și JavaScript-urile prin
-intermediul ajutorilor ``stylesheets`` și ``javascripts``:
+Escaping-ul iesirii
+-------------------
 
-.. code-block:: html+php
-
-    <?php $view['javascripts']->add('js/product.js') ?>
-    <?php $view['stylesheets']->add('css/product.css') ?>
-
-Metoda ``add()`` definește dependențele. Pentru a afișa aceste active, trebuie
-de asemenea să adăugați următorul cod în layout-ul principal:
-
-.. code-block:: html+php
-
-    <?php echo $view['javascripts'] ?>
-    <?php echo $view['stylesheets'] ?>
-
-Escape-ul iesirii
------------------
-
-Când utilizați șabloane PHP, întrebuințați mecanismul de escape al variabilelor
-de fiecare dată când acestea sunt afișate către utilizator::
-
-    <?php echo $view->escape($var) ?>
-
-În mod implicit, metoda ``escape()`` presupune că variabilele sunt afișate
-într-un context HTML. Cel de-al doilea argument vă permite să schimbați
-contextul. De exemplu, pentru a afișa ceva în cadrul unui script JavaScript,
-utilizați contextul ``js``::
-
-    <?php echo $view->escape($var, 'js') ?>
+Twig este configurat în mod implicit să realizeze escaping-ul ieșirii. Citiți
+`documentația`_ Twig pentru a afla mai multe despre escaping-ul ieșirii și
+despre extensia Escaper.
 
 Concluzii
 ---------
 
-Sistemul de șablonare Symfony2 este simplu însă puternic. Mulțumită
-layout-urilor, slot-urilor, șablonării și includerii acțiunilor, este foarte
-ușor să vă organizați șabloanele într-o manieră logică și extensibilă.
+Twig este simplu dar totuși puternic. Mulțumită aspectelor, blocurilor,
+șabloanelor și includerii acțiunilor, este foarte ușor să vă organizați
+șabloanele într-o manieră logică și extensibilă.
 
 Nu ați lucrat cu Symfony2 decât de aproape 20 de minute și deja puteți realiza
 lucruri uimitoare cu el. Aceasta este puterea Symfony2. Învățarea elementelor de
@@ -289,4 +290,5 @@ Dar să nu ne grăbim. Mai întâi, trebuie să aflați mai multe despre control
 iar acesta este exact subiectul următoarei părți a acestui tutorial. Sunteți
 pregătit pentru încă 10 minute alături de Symfony2?
 
-.. _Twig: http://www.twig-project.org/
+.. _Twig:         http://www.twig-project.org/
+.. _documentația: http://www.twig-project.org/documentation

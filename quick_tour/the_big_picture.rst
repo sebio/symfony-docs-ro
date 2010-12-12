@@ -228,10 +228,10 @@ HTML) și este definit sub formă de clasă PHP:
     {
         public function indexAction($name)
         {
-            return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
+            return $this->render('HelloBundle:Hello:index.twig', array('name' => $name));
 
-            // render a Twig template instead
-            // return $this->render('HelloBundle:Hello:index.twig', array('name' => $name));
+            // render a PHP template instead
+            // return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
         }
     }
 
@@ -254,8 +254,8 @@ Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
   ``$name``).
 
 * *linia 11*: Metoda ``render()`` încarcă și redă un șablon
-  (``HelloBundle:Hello:index``) cu variabilele trecute prin intermediul celui
-  de-al doilea argument.
+  (``HelloBundle:Hello:index.twig``) cu variabilele trecute prin intermediul
+  celui de-al doilea argument.
 
 Dar ce este un :term:`bundle`? Întregul cod pe care îl scrieți în cadrul unui
 proiect Symfony2 este organizat în bundle-uri. În vorbirea Symfony2, un bundle
@@ -266,17 +266,19 @@ nostru nu avem decât un singur bundle, ``HelloBundle``.
 Șabloane
 ~~~~~~~~
 
-Controlerul redă șablonul ``HelloBundle:Hello:index.php``. Dar în ce constă
+Controlerul redă șablonul ``HelloBundle:Hello:index.twig``. Dar în ce constă
 numele șablonului? ``HelloBundle`` reprezintă numele bundle-ului, ``Hello`` este
-numele controlerului, iar ``index.php`` numele fișierului șablonului. Șablonul
-însuși este alcătuit din cod HTML și expresii PHP simple:
+numele controlerului, iar ``index.twig`` numele șablonului. În mod implicit,
+sandbox-ul utilizeză Twig ca motor de șablonare:
 
-.. code-block:: html+php
+.. code-block:: jinja
 
-    <!-- src/Application/HelloBundle/Resources/views/Hello/index.php -->
-    <?php $view->extend('HelloBundle::layout.php') ?>
+    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
+    {% extends "HelloBundle::layout.twig" %}
 
-    Hello <?php echo $name ?>!
+    {% block content %}
+        Hello {{ name }}!
+    {% endblock %}
 
 Felicitări! Tocmai ați urmărit primele secvențe de cod în Symfony2. Nu a fost
 chiar atât de greu, nu-i așa? Symfony2 face cu adevărat ușoară implementarea
