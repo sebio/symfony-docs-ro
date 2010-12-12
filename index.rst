@@ -9,11 +9,6 @@ Tur Rapid
 .. toctree::
     :hidden:
 
-    quick_tour/index_twig
-
-.. toctree::
-    :hidden:
-
     quick_tour/index
 
 * :doc:`quick_tour/the_big_picture` >
