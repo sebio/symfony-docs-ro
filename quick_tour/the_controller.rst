@@ -28,55 +28,69 @@ formate în Symfony2 este simplu. Editați ``routing.yml`` și adăugați parame
 
     .. code-block:: yaml
 
-        # src/Application/HelloBundle/Resources/config/routing.yml
+        # src/Sensio/HelloBundle/Resources/config/routing.yml
         hello:
-            pattern:  /hello/:name
+            pattern:  /hello/{name}
             defaults: { _controller: HelloBundle:Hello:index, _format: xml }
 
     .. code-block:: xml
 
-        <!-- src/Application/HelloBundle/Resources/config/routing.xml -->
-        <route id="hello" pattern="/hello/:name">
+        <!-- src/Sensio/HelloBundle/Resources/config/routing.xml -->
+        <route id="hello" pattern="/hello/{name}">
             <default key="_controller">HelloBundle:Hello:index</default>
             <default key="_format">xml</default>
         </route>
 
     .. code-block:: php
 
-        // src/Application/HelloBundle/Resources/config/routing.php
-        $collection->add('hello', new Route('/hello/:name', array(
+        // src/Sensio/HelloBundle/Resources/config/routing.php
+        $collection->add('hello', new Route('/hello/{name}', array(
             '_controller' => 'HelloBundle:Hello:index',
             '_format'     => 'xml',
         )));
 
-Apoi, adăugați șablonul ``index.xml.php`` alături de ``index.php``:
+Apoi, adăugați șablonul ``index.xml.twig` alături de ``index.html.twig``:
 
 .. code-block:: xml+php
 
-    # src/Application/HelloBundle/Resources/views/Hello/index.xml.php
+    <!-- src/Sensio/HelloBundle/Resources/views/Hello/index.xml.twig -->
     <hello>
-        <name><?php echo $name ?></name>
+        <name>{{ name }}</name>
     </hello>
 
-Aceasta a fost tot. Nu este nevoie să modificați controlerul. Pentru formatele
-standard, Symfony2 va alege în mod automat cel mai bun header ``Content-Type``
-pentru răspuns. Dacă doriți să folosiți diferite formate pentru o singură
-acțiune, folosiți în schimb substituentul ``:_format`` în cadrul tiparului:
+În cele din urmă, deoarece șablonul trebuie să fie selectat în funcție de
+format, realizați următoarele modificari în controler:
+
+.. code-block:: php
+
+    // src/Sensio/HelloBundle/Controller/HelloController.php
+    public function indexAction($name, $_format)
+    {
+        return $this->render(
+            'HelloBundle:Hello:index.'.$_format.'.twig',
+            array('name' => $name)
+        );
+    }
+
+Aceasta a fost tot. Pentru formatele standard, Symfony2 va alege în mod automat
+cel mai bun header ``Content-Type`` pentru răspuns. Dacă doriți să folosiți
+diferite formate pentru o singură acțiune, folosiți în schimb substituentul
+``{_format}`` în cadrul tiparului:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # src/Application/HelloBundle/Resources/config/routing.yml
+        # src/Sensio/HelloBundle/Resources/config/routing.yml
         hello:
-            pattern:      /hello/:name.:_format
+            pattern:      /hello/{name}.{_format}
             defaults:     { _controller: HelloBundle:Hello:index, _format: html }
             requirements: { _format: (html|xml|json) }
 
     .. code-block:: xml
 
-        <!-- src/Application/HelloBundle/Resources/config/routing.xml -->
-        <route id="hello" pattern="/hello/:name.:_format">
+        <!-- src/Sensio/HelloBundle/Resources/config/routing.xml -->
+        <route id="hello" pattern="/hello/{name}.{_format}">
             <default key="_controller">HelloBundle:Hello:index</default>
             <default key="_format">html</default>
             <requirement key="_format">(html|xml|json)</requirement>
@@ -84,18 +98,16 @@ acțiune, folosiți în schimb substituentul ``:_format`` în cadrul tiparului:
 
     .. code-block:: php
 
-        // src/Application/HelloBundle/Resources/config/routing.php
-        $collection->add('hello', new Route('/hello/:name.:_format', array(
+        // src/Sensio/HelloBundle/Resources/config/routing.php
+        $collection->add('hello', new Route('/hello/{name}.{_format}', array(
             '_controller' => 'HelloBundle:Hello:index',
             '_format'     => 'html',
         ), array(
             '_format' => '(html|xml|json)',
         )));
 
-Controlerul poate fi acum solicitat pentru URL-uri ca ``/hello/Fabien.xml`` sau
-``/hello/Fabien.json``. Deoarece valoarea implicită pentru ``_format`` este
-``html``, ``/hello/Fabien`` și ``/hello/Fabien.html`` vor avea ambele formatul
-``html``.
+Controlerul va fi acum solicitat pentru URL-uri ca ``/hello/Fabien.xml`` sau
+``/hello/Fabien.json``.
 
 Parametrul ``requirements`` definește expresia regulată cu care substituentul
 trebuie să se potrivească. În exemplul dat, dacă încercați să solicitați resursa
@@ -110,20 +122,20 @@ Obiectul Response
 
 Acum, să ne întoarcem la controlerul ``Hello``::
 
-    // src/Application/HelloBundle/Controller/HelloController.php
+    // src/Sensio/HelloBundle/Controller/HelloController.php
 
     public function indexAction($name)
     {
-        return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
+        return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
     }
 
 Metoda ``render()`` redă un șablon și întoarce un obiect ``Response``. Răspunsul
-poate fi optimizat înainte să fie trimis către browser, de exemplu să fie
-schimbat ``Content-Type``-ul implicit::
+poate fi optimizat înainte să fie trimis către browser, de exemplu putem schimba
+``Content-Type``-ul implicit::
 
     public function indexAction($name)
     {
-        $response = $this->render('HelloBundle:Hello:index.php', array('name' => $name));
+        $response = $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
         $response->headers->set('Content-Type', 'text/plain');
 
         return $response;
@@ -134,7 +146,7 @@ să salvați câteva milisecunde::
 
     public function indexAction($name)
     {
-        return $this->createResponse('Hello '.$name);
+        return new Response('Hello '.$name);
     }
 
 Această metodă este deosebit de utilă atunci când controlerul trebuie să
@@ -175,7 +187,7 @@ Redirecționare și înaintare
 Dacă doriți să redirecționați utilizatorul către altă pagină, folosiți metoda
 ``redirect()``::
 
-    $this->redirect($this->generateUrl('hello', array('name' => 'Lucas')));
+    return $this->redirect($this->generateUrl('hello', array('name' => 'Lucas')));
 
 Metoda ``generateUrl()`` este asemenea metodei ``generate()`` folosită anterior
 prin intermediul helper-ului ``router``. Ea preia ca argumente numele rutei și
@@ -184,7 +196,7 @@ un array de parametri, întorcând URL-ul asociat.
 Puteți de asemenea să înaintați acțiunea curentă către altă acțiune cu ajutorul
 metodei ``forward()``. Asemenea helper-ului ``actions``, ea realizează o
 sub-cerere internă, dar întoarce obiectul ``Response`` pentru a permite
-modificări ulterioare dacă nevoia o va impune::
+modificări ulterioare::
 
     $response = $this->forward('HelloBundle:Hello:fancy', array('name' => $name, 'color' => 'green'));
 
@@ -210,11 +222,13 @@ la obiectul ``Request``::
     $request->request->get('page'); // obtine un parametru $_POST
 
 Într-un șablon, puteți să accesați obiectul ``Request`` prin intermediul
-helper-ului ``request``:
+variabilei ``app.request``:
 
 .. code-block:: html+php
 
-    <?php echo $view['request']->getParameter('page') ?>
+    {{ app.request.query.get('page') }}
+
+    {{ app.request.parameter('page') }}
 
 Sesiunea
 --------
@@ -246,13 +260,13 @@ doar pentru cererea imediat următoare::
     $session->setFlash('notice', 'Felicitari, actiunea dvs. a reusit!');
 
     // afiseaza mesajul in urmatoarea cerere (intr-un sablon)
-    <?php echo $view['session']->getFlash('notice') ?>
+    {{ app.session.flash('notice') }}
 
 Concluzii
 ---------
 
 Aceasta a fost tot, și nici nu sunt sigur dacă am consumat cele 10 minute
-alocate. În partea anterioară, am văzut cum să extindem sistemul de șablonare cu
-ajutorul helper-ilor. Numai că, în Symfony2, orice poate fi extins sau înlocuit
-prin intermediul bundle-urilor. Acesta este și subiectul următoarei părți a
-acestui tutorial.
+alocate. În prima parte am prezentat pe scurt bundle-urile; iar toate
+caracteristicile despre care am învățat până acum fac parte din bundle-ul
+principal al framework-ului. Mulțumită bundle-urilor, totul poate fi extins sau
+înlocuit în Symfony2. Acesta este subiectul următoarei părți a acestui tutorial.

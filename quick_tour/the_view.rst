@@ -28,19 +28,18 @@ Twig, o trecere în revistă
     `documentația`_ oficială. Această secțiune este doar o scurtă trecere în
     revistă a conceptelor de bază.
 
-Un șablon Twig este un simplu fișier text care poate genera orice format bazat
-pe text (HTML, XML, CSV, Latex, ...). Twig definește două tipuri de
-delimitatori:
+Un șablon Twig este un fișier text care poate genera orice format bazat pe text
+(HTML, XML, CSV, Latex, ...). Twig definește două tipuri de delimitatori:
 
-* ``{{ ... }}``: Afișează o variabilă sau rezultatul unei expesii în cadrul unui
-  șablon;
+* ``{{ ... }}``: Afișează o variabilă sau rezultatul unei expesii;
 
 * ``{% ... %}``: O etichetă care aparține de segmentul logic al unui șablon;
-  este utilizată pentru a executa instrucțiuni precum buclele for.
+  este utilizată, de exemplu, pentru a executa bucle ``for`` sau structuri
+  ``if``.
 
 Mai jos este un șablon minim care ilustrează câteva concepte de bază:
 
-.. code-block:: jinja
+.. code-block:: html+jinja
 
     <!DOCTYPE html>
     <html>
@@ -58,7 +57,7 @@ Mai jos este un șablon minim care ilustrează câteva concepte de bază:
         </body>
     </html>
 
-Variabilele trimise șabloanelor pot fi șiruri de caractere, array-uri sau chiar
+Variabilele trimise unui șabloan pot fi șiruri de caractere, array-uri sau chiar
 obiecte. Twig abstractizează diferența dintre ele și vă permite să accesați
 "atributele" unei variabile cu ajutorul notației punct (``.``):
 
@@ -100,28 +99,28 @@ problema diferit: un șablon poate fi decorat de un altul. Aceasta funcționeaz�
 un șablon cu "aspectul" de bază ce conține toate elementele comune ale site-ului
 dumneavoastră și definește "blocuri" pe care șabloanele copil le pot suprascrie.
 
-Șablonul ``index.twig`` moștenește de la ``layout.twig``, mulțumită etichetei
-``extends``:
+Șablonul ``index.html.twig`` moștenește de la ``layout.html.twig``, mulțumită
+etichetei ``extends``:
 
 .. code-block:: jinja
 
-    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
-    {% extends "HelloBundle::layout.twig" %}
+    {# src/Sensio/HelloBundle/Resources/views/Hello/index.html.twig #}
+    {% extends "HelloBundle::layout.html.twig" %}
 
     {% block content %}
         Hello {{ name }}!
     {% endblock %}
 
-Notația ``HelloBundle::layout.twig`` vă sună familiar, nu-i așa? Este aceeași
-notație ca aceea de referire a unui șablon. Partea ``::`` nu înseamnă decât
-că elementul controler este gol, prin urmare fișierul corespunzător este stocat
-direct în folderul ``views/``.
+Notația ``HelloBundle::layout.html.twig`` vă sună familiar, nu-i așa? Este
+aceeași notație ca aceea de referire a unui șablon. Partea ``::`` nu înseamnă
+decât că elementul controler este gol, prin urmare fișierul corespunzător este
+stocat direct în folderul ``views/``.
 
-Acum, să aruncăm o privire asupra fișierului ``layout.twig``:
+Acum, să aruncăm o privire asupra fișierului ``layout.html.twig``:
 
 .. code-block:: jinja
 
-    {% extends "::layout.twig" %}
+    {% extends "::base.html.twig" %}
 
     {% block body %}
         <h1>Hello Application</h1>
@@ -132,18 +131,15 @@ Acum, să aruncăm o privire asupra fișierului ``layout.twig``:
 Etichetele ``{% block %}`` definesc două blocuri (``body`` și ``content``) pe
 care șabloanele copil le pot umple. Tot ce realizează eticheta block este să îi
 comunice motorului de șablonare că un șablon copil poate să suprascrie aceste
-porțiuni ale șablonului. Șablonul ``index.twig`` suprascrie blocul ``content``.
-Celălalt bloc este definit în aspectul de bază deoarece aspectul este însuși
-decorat de un altul.
-
-Twig suportă niveluri multiple de decorare: un aspect poate fi însuși decorat
-de un altul. Când denumirea bundle-ului lipsește din numele șablonului
-(``::layout.twig``), vederile sunt căutate în folderul ``app/views/``. Acest
-folder stochează vederile globale pentru întregul proiect:
+porțiuni ale șablonului. Șablonul ``index.html.twig`` suprascrie blocul
+``content``. Celălalt bloc este definit într-un aspect de bază deoarece aspectul
+este însuși decorat de un altul. Când denumirea bundle-ului lipsește din numele
+șablonului (``::base.html.twig``), vederile sunt căutate în folderul
+``app/views/``. Acest folder stochează vederile globale pentru întregul proiect:
 
 .. code-block:: jinja
 
-    {# app/views/layout.twig #}
+    {# app/views/base.html.twig #}
     <!DOCTYPE html>
     <html>
         <head>
@@ -155,12 +151,12 @@ folder stochează vederile globale pentru întregul proiect:
         </body>
     </html>
 
-Etichete și filtre specifice
-----------------------------
+Etichete, filtre și funcții
+---------------------------
 
 Una dintre cele mai bune caracteristici ale Twig este extensibilitatea prin
-intermediul noilor etichete și filtre. Symfony2 vine însoțit de multe etichete
-și filtre specializate, care ușurează munca designer-ului web.
+intermediul etichetelor, filtrelor și funcțiilor. Symfony2 vine însoțit de
+multe dintre acestea, pentru a ușura munca designer-ului web.
 
 Includerea șabloanelor
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -168,23 +164,23 @@ Includerea șabloanelor
 Cea mai bună cale de a partaja un fragment de cod de șablon este aceea de a
 defini un șablon care poate fi inclus în alte șabloane.
 
-Creați un șablon ``hello.twig``:
+Creați un șablon ``hello.html.twig``:
 
 .. code-block:: jinja
 
-    {# src/Application/HelloBundle/Resources/views/Hello/hello.twig #}
+    {# src/Sensio/HelloBundle/Resources/views/Hello/hello.html.twig #}
     Hello {{ name }}
 
-Și modificați șablonul ``index.twig`` pentru al include:
+Și modificați șablonul ``index.html.twig`` pentru al include:
 
 .. code-block:: jinja
 
-    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
-    {% extends "HelloBundle::layout.twig" %}
+    {# src/Sensio/HelloBundle/Resources/views/Hello/index.html.twig #}
+    {% extends "HelloBundle::layout.html.twig" %}
 
-    {# override the body block from index.twig #}
+    {# override the body block from index.html.twig #}
     {% block body %}
-        {% include "HelloBundle:Hello:hello.twig" %}
+        {% include "HelloBundle:Hello:hello.html.twig" %}
     {% endblock %}
 
 Integrarea controlerelor
@@ -200,14 +196,14 @@ Dacă veți crea acțiunea ``fancy``, și doriți să o integrați în șablonul
 
 .. code-block:: jinja
 
-    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
-    {% render "HelloBundle:Hello:fancy" with ['name': name, 'color': 'green'] %}
+    {# src/Sensio/HelloBundle/Resources/views/Hello/index.html.twig #}
+    {% render "HelloBundle:Hello:fancy" with { 'name': name, 'color': 'green' } %}
 
 Aici, șirul de caractere ``HelloBundle:Hello:fancy`` se referă la acțiunea
 ``fancy`` a controlerului ``Hello``, iar argumentul conține valorile
 variabilelor pentru calea cererii simulate::
 
-    // src/Application/HelloBundle/Controller/HelloController.php
+    // src/Sensio/HelloBundle/Controller/HelloController.php
 
     class HelloController extends Controller
     {
@@ -216,7 +212,7 @@ variabilelor pentru calea cererii simulate::
             // create some object, based on the $color variable
             $object = ...;
 
-            return $this->render('HelloBundle:Hello:fancy.twig', array('name' => $name, 'object' => $object));
+            return $this->render('HelloBundle:Hello:fancy.html.twig', array('name' => $name, 'object' => $object));
         }
 
         // ...
@@ -226,45 +222,44 @@ Crearea legăturilor între pagini
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Când vorbim de aplicații web, crearea legăturilor între pagini este o
-necesitate. În loc să folosim hardcoding-ul URL-urilor în șabloane, eticheta
+necesitate. În loc să folosim hardcoding-ul URL-urilor în șabloane, funcția
 ``path`` știe cum să genereze URL-uri bazate pe configurarea rutelor. În acest
-mod, toate URL-urile pot fi actualizate ușor modificând configurarea:
+mod, toate URL-urile pot fi actualizate ușor modificând doar configurarea:
 
 .. code-block:: jinja
 
-    <a href="{% path 'hello' with ['name': 'Thomas'] %}">Greet Thomas!</a>
+    <a href="{{ path('hello', { 'name': 'Thomas' }) }}">Greet Thomas!</a>
 
-Eticheta ``path`` preia ca argumente numele rutei și un array de parametrii.
+Funcția ``path`` preia ca argumente numele rutei și un array de parametrii.
 Numele rutei este cheia principală cu ajutorul căreia se identifică ruta, iar
 parametrii conțin valorile substituenților definiți în tiparul rutei:
 
 .. code-block:: yaml
 
-    # src/Application/HelloBundle/Resources/config/routing.yml
+    # src/Sensio/HelloBundle/Resources/config/routing.yml
     hello: # The route name
-        pattern:  /hello/:name
+        pattern:  /hello/{name}
         defaults: { _controller: HelloBundle:Hello:index }
 
 .. tip::
 
-    Puteți de asemenea să generați URL-uri absolute cu ajutorul etichetei
-    ``url``: ``{% url 'hello' with ['name': 'Thomas'] %}``.
+    Funția ``url`` generează URL-uri *absolute*: ``{{ url('hello', {
+    'name': 'Thomas' }) }}``.
 
-Utilizarea activelor: imagini, JavaScript-uri și foi de stil
+Includerea activelor: imagini, JavaScript-uri și foi de stil
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Ce ar fi Internet-ul fără imagini, JavaScript-uri și foi de stil? Symfony2
-furnizează trei ajutori pentru a le face față cu ușurință: ``assets``,
-``javascripts`` și ``stylesheets``:
+furnizează funcția ``asset`` pentru a le face față cu ușurință:
 
 .. code-block:: jinja
 
-    <link href="{% asset 'css/blog.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/blog.css') }}" rel="stylesheet" type="text/css" />
 
-    <img src="{% asset 'images/logo.png' %}" />
+    <img src="{{ asset('images/logo.png') }}" />
 
-Scopul principal al etichetei ``asset`` este să facă aplicația mai portabilă.
-Mulțumită acestei etichete, puteți să mutați folderul rădăcină al aplicației
+Scopul principal al funcției ``asset`` este să facă aplicația mai portabilă.
+Mulțumită acestei funcții, puteți să mutați folderul rădăcină al aplicației
 oriunde în interiorul rădăcinii web fără a schimba ceva în codul șabloanelor.
 
 Escaping-ul iesirii

@@ -36,12 +36,14 @@ aveți un folder ``sandbox/``::
                 config/
                 logs/
             src/
-                Application/
+                Sensio/
                     HelloBundle/
                         Controller/
                         Resources/
-                vendor/
-                    symfony/
+            vendor/
+                symfony/
+                doctrine/
+                ...
             web/
 
 .. index::
@@ -98,8 +100,8 @@ Cum realizează Symfony2 rutarea cererii către codul dumneavoastră? Pur și si
 citind câteva fișiere de configurare.
 
 Toate fișiere de configurare Symfony2 pot fi scrise fie în PHP, XML sau `YAML`_
-(YAML este un format simplu care face descrierea setărilor de configurare foarte
-ușoară).
+(YAML este un format simplu care ușoară face descrierea setărilor de
+configurare).
 
 .. tip::
 
@@ -127,7 +129,7 @@ Symfony2 rutează cererea citind fișierul de configurare al rutelor:
             defaults: { _controller: FrameworkBundle:Default:index }
 
         hello:
-            resource: HelloBundle/Resources/config/routing.yml
+            resource: "@HelloBundle/Resources/config/routing.yml"
 
     .. code-block:: xml
 
@@ -142,7 +144,7 @@ Symfony2 rutează cererea citind fișierul de configurare al rutelor:
                 <default key="_controller">FrameworkBundle:Default:index</default>
             </route>
 
-            <import resource="HelloBundle/Resources/config/routing.xml" />
+            <import resource="@HelloBundle/Resources/config/routing.xml" />
         </routes>
 
     .. code-block:: php
@@ -155,53 +157,53 @@ Symfony2 rutează cererea citind fișierul de configurare al rutelor:
         $collection->add('homepage', new Route('/', array(
             '_controller' => 'FrameworkBundle:Default:index',
         )));
-        $collection->addCollection($loader->import("HelloBundle/Resources/config/routing.php"));
+        $collection->addCollection($loader->import("@HelloBundle/Resources/config/routing.php"));
 
         return $collection;
 
-Primele linii ale fișierului de configurare al rutelor definesc ce cod trebuie
-executat atunci când utilizatorul solicită resursa "``/``". Mult mai interesantă
-este ultima parte, cea care importă un alt fișier de configurare cu următorul
+Primele linii ale fișierului de configurare al rutelor definesc codul executat
+atunci când utilizatorul solicită resursa "``/``". Mult mai interesantă este
+ultima parte, cea care importă un alt fișier de configurare cu următorul
 conținut:
 
 .. configuration-block::
 
     .. code-block:: yaml
 
-        # src/Application/HelloBundle/Resources/config/routing.yml
+        # src/Sensio/HelloBundle/Resources/config/routing.yml
         hello:
-            pattern:  /hello/:name
+            pattern:  /hello/{name}
             defaults: { _controller: HelloBundle:Hello:index }
 
     .. code-block:: xml
 
-        <!-- src/Application/HelloBundle/Resources/config/routing.xml -->
+        <!-- src/Sensio/HelloBundle/Resources/config/routing.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <routes xmlns="http://www.symfony-project.org/schema/routing"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
 
-            <route id="hello" pattern="/hello/:name">
+            <route id="hello" pattern="/hello/{name}">
                 <default key="_controller">HelloBundle:Hello:index</default>
             </route>
         </routes>
 
     .. code-block:: php
 
-        // src/Application/HelloBundle/Resources/config/routing.php
+        // src/Sensio/HelloBundle/Resources/config/routing.php
         use Symfony\Component\Routing\RouteCollection;
         use Symfony\Component\Routing\Route;
 
         $collection = new RouteCollection();
-        $collection->add('hello', new Route('/hello/:name', array(
+        $collection->add('hello', new Route('/hello/{name}', array(
             '_controller' => 'HelloBundle:Hello:index',
         )));
 
         return $collection;
 
-Iată! După cum puteți observa, tiparul resursei "``/hello/:name``" (un șir
-de caractere care începe cu două puncte, asemena lui ``:name``, reprezintă un
+Iată! După cum puteți observa, tiparul resursei "``/hello/{name}``" (un șir
+de caractere încadrat de acolade, asemena lui ``{name}``, reprezintă un
 substituent) este atribuit unui controler, menționat de valoarea parametrului
 ``_controller``.
 
@@ -218,9 +220,9 @@ HTML) și este definit sub forma unei clase PHP:
 .. code-block:: php
     :linenos:
 
-    // src/Application/HelloBundle/Controller/HelloController.php
+    // src/Sensio/HelloBundle/Controller/HelloController.php
 
-    namespace Application\HelloBundle\Controller;
+    namespace Sensio\HelloBundle\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -228,14 +230,14 @@ HTML) și este definit sub forma unei clase PHP:
     {
         public function indexAction($name)
         {
-            return $this->render('HelloBundle:Hello:index.twig', array('name' => $name));
+            return $this->render('HelloBundle:Hello:index.html.twig', array('name' => $name));
 
             // render a PHP template instead
-            // return $this->render('HelloBundle:Hello:index.php', array('name' => $name));
+            // return $this->render('HelloBundle:Hello:index.html.php', array('name' => $name));
         }
     }
 
-Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
+Codul este destul de intuitiv, totuși să-l explicăm linie cu linie:
 
 * *linia 3*: Symfony2 profită de avantajul noilor facilități PHP 5.3 și, ca
   atare, toate controlerele sunt corect încadrate într-un namespace
@@ -254,8 +256,8 @@ Codul este destul de intuitiv, totuși să explicăm acest cod linie cu linie:
   ``$name``).
 
 * *linia 11*: Metoda ``render()`` încarcă și redă un șablon
-  (``HelloBundle:Hello:index.twig``) cu variabilele trimise prin intermediul
-  celui de-al doilea argument.
+  (``HelloBundle:Hello:index.html.twig``) cu variabilele trimise prin
+  intermediul celui de-al doilea argument.
 
 Dar ce este un :term:`bundle`? Întregul cod pe care îl scrieți în cadrul unui
 proiect Symfony2 este organizat în bundle-uri. În vorbirea Symfony2, un bundle
@@ -266,15 +268,15 @@ nostru nu avem decât un singur bundle, ``HelloBundle``.
 Șabloane
 ~~~~~~~~
 
-Controlerul redă șablonul ``HelloBundle:Hello:index.twig``. Dar în ce constă
-numele șablonului? ``HelloBundle`` reprezintă numele bundle-ului, ``Hello`` este
-numele controlerului, iar ``index.twig`` numele șablonului. În mod implicit,
-sandbox-ul utilizeză Twig ca motor de șablonare:
+Controlerul redă șablonul ``HelloBundle:Hello:index.html.twig``. Dar în ce
+constă numele șablonului? ``HelloBundle`` reprezintă numele bundle-ului,
+``Hello`` este numele controlerului, iar ``index.html.twig`` numele șablonului.
+În mod implicit, sandbox-ul utilizeză Twig ca motor de șablonare:
 
 .. code-block:: jinja
 
-    {# src/Application/HelloBundle/Resources/views/Hello/index.twig #}
-    {% extends "HelloBundle::layout.twig" %}
+    {# src/Sensio/HelloBundle/Resources/views/Hello/index.html.twig #}
+    {% extends "HelloBundle::layout.html.twig" %}
 
     {% block content %}
         Hello {{ name }}!

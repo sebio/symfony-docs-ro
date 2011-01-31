@@ -10,7 +10,7 @@ Contribuirea
 Mai întâi, deveniți familiar cu :doc:`limbajul de marcare <format>` utilizat
 pentru documentație.
 
-Apoi, abonați-vă la `mailing-list-ul documentației`_ Symfony2 deoarece toate
+Apoi, abonați-vă la `mailing-list-ul documentației`_ Symfony deoarece toate
 colaborarile se produc acolo.
 
 În cele din urmă, găsiți depozitul *master* pentru limba la care doriți să

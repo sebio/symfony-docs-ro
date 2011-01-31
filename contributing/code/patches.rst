@@ -123,27 +123,23 @@ Verificați dacă toate testele trec și împingeți ramura mai departe:
 
     $ git push origin BRANCH_NAME
 
-Acum puteți să vă faceți cunoscut patch-ul pe `dev mailing-list`_. Email-ul
-trebuie să urmeze următoarele convenții:
+Acum puteți să discutați patch-ul pe `dev mailing-list`_ sau să trimiteți un
+pull request (acestea trebuie trimise in depozitul ``fabpot/symfony``).
 
-* Subiectul trebuie să înceapă cu `[PATCH]`, urmat de un scurt sumar al
-  patch-ului (cu o referire la tichet dacă este o reparație de bug  - `#XXX`);
+Dacă trimiteți un email pe mailing-list, nu uitați să menționați URL-ul ramurii
+(``http://github.com/USERNAME/symfony.git BRANCH_NAME``).
 
-* Corpul trebuie să conțină informații despre ramura dumneavoastră
-  (`git://github.com/USERNAME/symfony.git BRANCH_NAME`);
-
-* Corpul trebuie să descrie ceea ce realizează patch-ul (o referire la tichet
-  sau o copie a mesajului din commit).
-
-În urma feedback-ului primit, este posibil să fie necesar să refaceți patch-ul.
+În urma feedback-ului primit pe mailing-list sau prin intermediul pull
+request-ului pe Github, este posibil să fie necesar să refaceți patch-ul.
 Înainte de a retrimite patch-ul, efectuați un rebase cu ramura master, nu
 alipire; și forțați împingerea către origin:
 
 .. code-block:: bash
 
+    $ git rebase -f upstream/master
     $ git push -f origin BRANCH_NAME
 
-.. _ProGit: http://progit.org/
-.. _Github: https://github.com/signup/free
+.. _ProGit:             http://progit.org/
+.. _Github:             https://github.com/signup/free
 .. _depozitul Symfony2: http://www.github.com/fabpot/symfony
-.. _dev mailing-list: http://groups.google.com/group/symfony-devs
+.. _dev mailing-list:   http://groups.google.com/group/symfony-devs

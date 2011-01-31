@@ -17,11 +17,10 @@ Structura de foldere a unei :term:`aplicații <aplicație>` Symfony2 este destul
 de flexibilă, însă structura de foldere a sandbox-ului reflectă forma tipică și
 recomandată pentru o aplicație Symfony2:
 
-* ``app/``: Acest folder conține configurarea aplicației;
-
-* ``src/``: Întregul cod PHP este stocat în acest folder;
-
-* ``web/``: Acesta ar trebui să fie folderul rădăcină web.
+* ``app/``: Configurarea aplicației;
+* ``src/``: Codul PHP al proiectului;
+* ``vendor/``: Dependențele externe;
+* ``web/``: Folderul rădăcină web.
 
 Folderul rădăcină web
 ~~~~~~~~~~~~~~~~~~~~~
@@ -31,12 +30,16 @@ imaginile, foile de stil și fișierele JavaScript. Este de asemenea locul unde
 se găsește fiecare :term:`controler frontal`::
 
     // web/app.php
+    require_once __DIR__.'/../app/bootstrap.php';
     require_once __DIR__.'/../app/AppKernel.php';
 
     use Symfony\Component\HttpFoundation\Request;
 
     $kernel = new AppKernel('prod', false);
-    $kernel->handle(new Request())->send();
+    $kernel->handle(Request::createFromGlobals())->send();
+
+Kernel-ul solicită mai întai fișierul ``bootstrap.php``, care pornește procesul
+de bootstrap al framework-ului și inregistrează autoloader-ul (vezi mai jos).
 
 Asemenea oricărui controler frontal, ``app.php`` utilizează o clasă Kernel,
 ``AppKernel``, pentru procesul de bootstrap al aplicației.
@@ -50,58 +53,43 @@ Folderul aplicație
 Clasa ``AppKernel`` reprezintă principalul punct de intrare pentru configurarea
 aplicației și, ca atare, este salvată în folderul ``app/``.
 
-Această clasă trebuie să implementeze patru metode:
+Această clasă trebuie să implementeze trei metode:
 
 * ``registerRootDir()``: Întoarce folderul rădăcină al configurării;
 
 * ``registerBundles()``: Întoarce un array cu toate bundle-urile necesare
   pentru rularea aplicației (observați referirea la
-  ``Application\HelloBundle\HelloBundle``);
+  ``Sensio\HelloBundle\HelloBundle``);
 
-* ``registerBundleDirs()``: Întoarce un array asociativ cu namespace-urile și
-  folderele respective lor;
-
-* ``registerContainerConfiguration()``: Întoarce obiectul principal al
-  configurării (mai multe despre acesta veți afla un pic mai târziu);
+* ``registerContainerConfiguration()``: Încarcă configurarea (mai multe despre
+  aceasta veți afla mai târziu);
 
 Aruncați o privire peste implementarea implicită a acestor metode pentru a
 înțelege mai bine flexibilitatea framework-ului.
 
-Pentru a face ca lucrurile să funcționeze bine împreună, kernel-ul are nevoie de
-un fișier aflat în folderul ``src/``::
-
-    // app/AppKernel.php
-    require_once __DIR__.'/../src/autoload.php';
-
-Folderul sursă
-~~~~~~~~~~~~~~
-
-Fișierul ``src/autoload.php`` este responsabil de încărcarea automată a tuturor
-fișierelor depozitate în folderul ``src/``::
+Autoîncărcarea PHP poate fi configurată prin intermediul fișierului
+``autoload.php``::
 
     // src/autoload.php
-    $vendorDir = __DIR__.'/vendor';
-
-    require_once $vendorDir.'/symfony/src/Symfony/Component/HttpFoundation/UniversalClassLoader.php';
-
-    use Symfony\Component\HttpFoundation\UniversalClassLoader;
+    use Symfony\Component\ClassLoader\UniversalClassLoader;
 
     $loader = new UniversalClassLoader();
     $loader->registerNamespaces(array(
-        'Symfony'                        => $vendorDir.'/symfony/src',
-        'Application'                    => __DIR__,
-        'Bundle'                         => __DIR__,
-        'Doctrine\\Common\\DataFixtures' => $vendorDir.'/doctrine-data-fixtures/lib',
-        'Doctrine\\Common'               => $vendorDir.'/doctrine-common/lib',
-        'Doctrine\\DBAL\\Migrations'     => $vendorDir.'/doctrine-migrations/lib',
-        'Doctrine\\ODM\\MongoDB'         => $vendorDir.'/doctrine-mongodb/lib',
-        'Doctrine\\DBAL'                 => $vendorDir.'/doctrine-dbal/lib',
-        'Doctrine'                       => $vendorDir.'/doctrine/lib',
-        'Zend'                           => $vendorDir.'/zend/library',
+        'Symfony'                        => __DIR__.'/../vendor/symfony/src',
+        'Sensio'                         => __DIR__.'/../src',
+        'Doctrine\\Common\\DataFixtures' => __DIR__.'/../vendor/doctrine-data-fixtures/lib',
+        'Doctrine\\Common'               => __DIR__.'/../vendor/doctrine-common/lib',
+        'Doctrine\\DBAL\\Migrations'     => __DIR__.'/../vendor/doctrine-migrations/lib',
+        'Doctrine\\MongoDB'              => __DIR__.'/../vendor/doctrine-mongodb/lib',
+        'Doctrine\\ODM\\MongoDB'         => __DIR__.'/../vendor/doctrine-mongodb-odm/lib',
+        'Doctrine\\DBAL'                 => __DIR__.'/../vendor/doctrine-dbal/lib',
+        'Doctrine'                       => __DIR__.'/../vendor/doctrine/lib',
+        'Zend'                           => __DIR__.'/../vendor/zend/library',
     ));
     $loader->registerPrefixes(array(
-        'Swift_' => $vendorDir.'/swiftmailer/lib/classes',
-        'Twig_'  => $vendorDir.'/twig/lib',
+        'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
+        'Twig_'            => __DIR__.'/../vendor/twig/lib',
+        'Swift_'           => __DIR__.'/../vendor/swiftmailer/lib/classes',
     ));
     $loader->register();
 
@@ -118,17 +106,17 @@ depozitați oriunde doriți, global pe server sau local în cadrul proiectelor.
 Sistemul de bundle-uri
 ----------------------
 
-Această secțiune abia atinge suprafața uneia dintre cele mai importante și mai
-puternice caracteristici ale Symfony2, sistemul de :term:`bundle-uri <bundle>`.
+Această secțiune prezintă una dintre cele mai importante și mai puternice
+caracteristici ale Symfony2, sistemul de :term:`bundle-uri <bundle>`.
 
 Un bundle este asemenea unui plugin întâlnit în alte programe. Dar de ce este
-denumit bundle și nu plugin? Pentru că, în Symfony2, totul este un bundle, de la
-caracteristicile de bază ale framework-ului până la codul pe care îl scrieți
-pentru aplicația dumneavoastră. Bundle-urile sunt cetățeni de primă clasă în
-Symfony2. Aceasta vă oferă flexibilitatea de a folosi facilități livrate de
-terți prin intermediul bundle-urilor pre-construite sau, de a distribui
-propriile bundle-uri. Este foarte ușor să alegeți ce facilități doriți să
-folosiți în cadrul aplicației și să le optimizați după bunul plac.
+denumit *bundle* și nu *plugin*? Pentru că, în Symfony2, totul este un bundle,
+de la caracteristicile de bază ale framework-ului până la codul pe care îl
+scrieți pentru aplicația dumneavoastră. Bundle-urile sunt cetățeni de primă
+clasă în Symfony2. Aceasta vă oferă flexibilitatea de a folosi facilități
+livrate de terți prin intermediul bundle-urilor pre-construite sau, de a
+distribui propriile bundle-uri. Este foarte ușor să alegeți ce facilități
+doriți să folosiți în cadrul aplicației și să le optimizați după bunul plac.
 
 O aplicație este constituită din bundle-uri așa cum este definit în metoda
 ``registerBundles()`` a clasei ``AppKernel``::
@@ -148,7 +136,7 @@ O aplicație este constituită din bundle-uri așa cum este definit în metoda
             //new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
 
             // register your bundles
-            new Application\HelloBundle\HelloBundle(),
+            new Sensio\HelloBundle\HelloBundle(),
         );
 
         if ($this->isDebug()) {
@@ -174,7 +162,9 @@ scrise în YAML, XML sau PHP. Să aruncăm o privire la configurarea implicită:
         app.config:
             charset:       UTF-8
             error_handler: null
-            csrf_secret:   xxxxxxxxxx
+            csrf_protection:
+                enabled: true
+                secret: xxxxxxxxxx
             router:        { resource: "%kernel.root_dir%/config/routing.yml" }
             validation:    { enabled: true, annotations: true }
             templating:
@@ -206,10 +196,11 @@ scrise în YAML, XML sau PHP. Să aruncăm o privire la configurarea implicită:
     .. code-block:: xml
 
         <!-- app/config/config.xml -->
-        <app:config csrf-secret="xxxxxxxxxx" charset="UTF-8" error-handler="null">
+        <app:config charset="UTF-8" error-handler="null">
             <app:router resource="%kernel.root_dir%/config/routing.xml" />
             <app:validation enabled="true" annotations="true" />
             <app:session default-locale="en" lifetime="3600" />
+            <app:csrf-protection enabled="true" secret="xxxxxxxxxx" />
         </app:config>
 
         <!-- Twig Configuration -->
@@ -238,12 +229,12 @@ scrise în YAML, XML sau PHP. Să aruncăm o privire la configurarea implicită:
 
         // app/config/config.php
         $container->loadFromExtension('app', 'config', array(
-            'charset'       => 'UTF-8',
-            'error_handler' => null,
-            'csrf-secret'   => 'xxxxxxxxxx',
-            'router'        => array('resource' => '%kernel.root_dir%/config/routing.php'),
-            'validation'    => array('enabled' => true, 'annotations' => true),
-            'templating'    => array(
+            'charset'         => 'UTF-8',
+            'error_handler'   => null,
+            'csrf-protection' => array('enabled' => true, 'secret' => 'xxxxxxxxxx'),
+            'router'          => array('resource' => '%kernel.root_dir%/config/routing.php'),
+            'validation'      => array('enabled' => true, 'annotations' => true),
+            'templating'      => array(
                 #'assets_version' => "SomeVersionScheme",
             ),
             'session' => array(
@@ -347,25 +338,6 @@ intermediul unui fișier de configurare specific:
                 'path'     => '%kernel.logs_dir%/%kernel.environment%.log',
             ),
         ));
-
-După cum am putut observa puțin mai devreme, o aplicație este constituită din
-bundle-urile definite în metoda ``registerBundles()``. Dar de unde știe Symfony2
-unde să caute aceste bundle-uri? Symfony2 este destul de flexibil în această
-privință. Metoda ``registerBundleDirs()`` trebuie să întoarcă un array asociativ
-care asociază namespace-urile cu folderele corespunzătoare lor (fie locale sau
-globale)::
-
-    public function registerBundleDirs()
-    {
-        return array(
-            'Application'     => __DIR__.'/../src/Application',
-            'Bundle'          => __DIR__.'/../src/Bundle',
-            'Symfony\\Bundle' => __DIR__.'/../src/vendor/symfony/src/Symfony/Bundle',
-        );
-    }
-
-Prin urmare, când vă referiți la ``HelloBundle``, în numele unui controler sau
-al unui șablon, Symfony2 va căuta în folderele furnizate.
 
 Acum înțelegeți de ce Symfony2 este atât de flexibil? Când doriți partajarea
 bundle-urilor între aplicații, le puteți stoca local sau global, alegerea vă
